@@ -20,6 +20,10 @@ public class MusicManager {
 	ArrayList<Music> musicList = new ArrayList<>();
 	MusicPlay mp = new MusicPlay("Far_Apart.mp3");
 	
+	public MusicManager() {
+		setMusicList();
+	}
+
 	public void playMusic() {
 		//다시 초기화 하지 않으면 illegalthreadstateexception 오류가 나타난다.
 		mp = new MusicPlay("Far_Apart.mp3");
@@ -30,8 +34,10 @@ public class MusicManager {
 		mp.close();
 	}
 	
+	//음악 리스트 폴더에서 불러오기 나중에 자세히 보자
 	public void setMusicList() {
 		File fs = new File("Music");
+		//isDirectory가 무엇일까?
 		if(fs.isDirectory()) {
 			File list[] = fs.listFiles();
 			for(File f : list) {
@@ -48,7 +54,10 @@ public class MusicManager {
                     String releaseYear = tag.getFirst(FieldKey.YEAR);
                     
                     musicList.add(new Music(musicName, musicSinger, genre, playTime, releaseYear));
-				} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
+				} catch (CannotReadException
+						| IOException 
+						| TagException 
+						| ReadOnlyFileException
 						| InvalidAudioFrameException e) {
 					e.printStackTrace();
 				}

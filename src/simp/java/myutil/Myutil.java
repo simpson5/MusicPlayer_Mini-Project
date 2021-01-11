@@ -1,7 +1,6 @@
 package simp.java.myutil;
 
 import java.awt.Color;
-import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,21 +22,12 @@ public class Myutil {
 	}
 	
 	//panel 생성
-	public static void panel(JPanel p, int w, int h, Music m) {
+	public static JPanel panel(int w, int h) {
+		JPanel p = new JPanel();
 		p.setLayout(null);
 		p.setSize(w, h);
 		p.setBackground(Color.lightGray);
-		JLabel info = label(700, 30, m);
-		//추가 삭제 버튼
-		JButton add = btn(100, 30, "추가");
-		JButton remove = btn(100, 30, "제거");
-		info.setLocation(0, 0);
-		add.setLocation(500, 0);
-		remove.setLocation(600, 0);
-		
-		p.add(info);
-		p.add(add);
-		p.add(remove);
+		return p;
 		
 	}
 	//Label 생성

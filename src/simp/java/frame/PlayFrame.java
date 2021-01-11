@@ -1,16 +1,9 @@
 package simp.java.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import simp.java.manager.MusicManager;
 import simp.java.myutil.Myutil;
 
-public class PlayFrame extends JFrame {
-	MusicManager mm = new MusicManager();
-	
+public class PlayFrame extends MainFrame{
 	public PlayFrame(int w, int h, String title) {
 		Myutil.init(this, w, h, title);
 		
@@ -34,27 +27,4 @@ public class PlayFrame extends JFrame {
 		add(stop);
 		add(back);
 	}
-	
-	public class startBtnListner implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mm.playMusic();
-			mm.setMusicList();
-		}
-	}
-	
-	public class stopBtnListner implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mm.stopMusic();
-		}
-	}
-	
-	public class backBtnListner implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mm.stopMusic();
-			new MainFrame(800, 800, "음악 플레이어").setVisible(true);
-		}
-	}
-}
+}	

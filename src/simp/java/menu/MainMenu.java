@@ -8,7 +8,7 @@ import simp.java.frame.MainFrame;
 import simp.java.manager.MusicManager;
 
 public class MainMenu {
-	MusicManager m = new MusicManager();
+	MusicManager mm = new MusicManager();
 	Scanner sc = new Scanner(System.in);
 	
 	public void Menu() {
