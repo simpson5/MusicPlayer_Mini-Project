@@ -8,15 +8,15 @@ public class Music {
 	private String genre;
 	private long playTime;
 	//private int playCnt;
-	private LocalDate releaseDate;
+	private String releaseYear;
 	
-	public Music(String musicName, String musicSinger, String genre, long playTime, LocalDate releaseDate) {
+	public Music(String musicName, String musicSinger, String genre, long playTime, String releaseYear) {
 		super();
 		this.musicName = musicName;
 		this.musicSinger = musicSinger;
 		this.genre = genre;
 		this.playTime = playTime;
-		this.releaseDate = releaseDate;
+		this.releaseYear = releaseYear;
 	}
 
 	public String getMusicName() {
@@ -51,18 +51,18 @@ public class Music {
 		this.playTime = playTime;
 	}
 
-	public LocalDate getReleaseDate() {
-		return releaseDate;
+	public String getReleaseYear() {
+		return releaseYear;
 	}
 
-	public void setReleaseDate(LocalDate releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseYear(String releaseYear) {
+		this.releaseYear = releaseYear;
 	}
 
 	@Override
 	public String toString() {
 		return "Music [musicName=" + musicName + ", musicSinger=" + musicSinger + ", genre=" + genre + ", playTime="
-				+ playTime + ", releaseDate=" + releaseDate + "]";
+				+ playTime + ", releaseYear=" + releaseYear + "]";
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class Music {
 		result = prime * result + ((musicName == null) ? 0 : musicName.hashCode());
 		result = prime * result + ((musicSinger == null) ? 0 : musicSinger.hashCode());
 		result = prime * result + (int) (playTime ^ (playTime >>> 32));
-		result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
+		result = prime * result + ((releaseYear == null) ? 0 : releaseYear.hashCode());
 		return result;
 	}
 
@@ -103,10 +103,10 @@ public class Music {
 			return false;
 		if (playTime != other.playTime)
 			return false;
-		if (releaseDate == null) {
-			if (other.releaseDate != null)
+		if (releaseYear == null) {
+			if (other.releaseYear != null)
 				return false;
-		} else if (!releaseDate.equals(other.releaseDate))
+		} else if (!releaseYear.equals(other.releaseYear))
 			return false;
 		return true;
 	}
