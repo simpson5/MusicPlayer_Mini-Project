@@ -11,8 +11,6 @@ import simp.java.music.vo.Music;
 public class MusicPlayer {
 	Player player;
 	private File file;
-	private FileInputStream fis;
-	private BufferedInputStream bis;
 	//음악이 재생중인지 검사
 	public boolean play = false;
 	
@@ -20,10 +18,9 @@ public class MusicPlayer {
 	}
 
 	public MusicPlayer(Music m) {
-		try {
+		try(FileInputStream fis = new FileInputStream(file);
+			BufferedInputStream bis = new BufferedInputStream(fis)) {
 			file = new File("Music/" + m.getMusicName() + ".mp3");
-			fis = new FileInputStream(file);
-			bis = new BufferedInputStream(fis);
 			player = new Player(bis);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
