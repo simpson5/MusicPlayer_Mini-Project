@@ -28,9 +28,6 @@ public class MainFrame extends JFrame {
 	//하지만 상속하지 않고 내부 클래스로 만들어 보자.
 	//그러면 내부 클래스가 너무 증가하기 때문에 매니저 생성자가 만들어 질때 뮤직 리스트를 생성해버리자고
 	//메인 프레임을 상속 시키자!
-	public MainFrame() {
-		
-	}
 	
 	public MainFrame(int w, int h, String title) {
 		Myutil.init(this, w, h, title);
@@ -48,7 +45,7 @@ public class MainFrame extends JFrame {
 		allMusicList = new AllListPanel(this, Color.gray, "전체 목록");
 		add(allMusicList);
 		//음악 재생 목록 panel
-		playMusicList = new PlayListPanel(this, Color.darkGray,"재생 목록");
+		playMusicList = new PlayListPanel(this, Color.lightGray,"재생 목록");
 		
 		JButton AllListButton = new JButton("전체 목록");
 		AllListButton.setBounds(400, 0, 100, 50);
@@ -74,20 +71,6 @@ public class MainFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Myutil.changePanel(main, playMusicList, allMusicList);
-		}
-	}
-	
-	public static class refrash implements ActionListener{
-		Component c;
-		
-		public refrash(Component c) {
-			this.c = c;
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			c.revalidate();
-			c.repaint();
 		}
 	}
 }

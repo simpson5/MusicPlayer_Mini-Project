@@ -8,6 +8,7 @@ import java.util.Set;
 import simp.java.io.SetMusic;
 import simp.java.music.vo.Music;
 import simp.java.thread.MusicPlay;
+import simp.java.view.PlayPanel;
 
 public class MusicManager {
 	//음악 셋 전체 목록
@@ -37,7 +38,7 @@ public class MusicManager {
 	}
 	
 	public void stopMusic() {
-		mp.stop();
+		mp.close();
 	}
 	
 	//음악들 폴더에서 불러오기 나중에 자세히 보자

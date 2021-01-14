@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
 
 public class AllListPanel extends JPanel {
@@ -21,7 +22,7 @@ public class AllListPanel extends JPanel {
 		
 		setLayout(null);
 		
-		Set<Music> allMusicSet = MainFrame.mm.getMusicSet();
+		Set<Music> allMusicSet = MusicManager.musicSet;
 		
 		add(new MusicTable(allMusicSet));
 	}

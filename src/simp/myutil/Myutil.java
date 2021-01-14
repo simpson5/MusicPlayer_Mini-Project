@@ -53,5 +53,7 @@ public class Myutil {
 		parent.add(next);
 		parent.revalidate(); // 컨테이너 하위 계층 구조를 새로고침
 		parent.repaint(); //화면 다시 그리기
+		next.revalidate();
+		next.repaint();
 	}
 }

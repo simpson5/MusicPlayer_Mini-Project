@@ -1,5 +1,6 @@
 package simp.java.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
 import simp.myutil.TableCell;
 
@@ -19,7 +21,8 @@ public class MusicTable extends JPanel{
 	
 	public MusicTable(Collection<Music> c) {
 		this.c = c;
-		setSize(400, 700);
+		setBackground(Color.green);
+		setSize(400, 600);
 		setLayout(null);
 		Iterator<Music> iter = c.iterator();
 		int i = 0;
@@ -38,31 +41,9 @@ public class MusicTable extends JPanel{
 			add(l);
 			i++;
 		}
-		
-		//테이블로 하는 방식 체크박스 추가에서 포기...
-//		Object[] columnNames = {
-//				"제목", "가수", "장르", "재생"
-//		};
-//		
-//		Object[][] rowData = new Object[c.size()][columnNames.length];
-//		Iterator<Music> iter = c.iterator();
-//		for(int i = 0; i < c.size(); i++) {
-//			Music m = iter.next();
-//			rowData[i][0] = m.getMusicName();
-//			rowData[i][1] = m.getMusicSinger();
-//			rowData[i][2] = m.getGenre();
-//		}
-//		
-//		JTable table = new JTable(rowData, columnNames);
-//		table.setSize(400, 800);
-//		
-//		table.getColumn("재생").setCellRenderer(new TableCell());
-//		table.getColumn("재생").setCellEditor(new TableCell());
-//		
-//		JScrollPane scroll = new JScrollPane(table);
-//		add(scroll);
 	}
 	
+	//추가 제거 하면서 playpanel에 있던 내용 다 지우고 다시 그리기 이러지 않으면 동기화 X
 	public static class addBtnListner implements ActionListener {
 		Music m;
 		public addBtnListner(Music m) {
@@ -72,6 +53,10 @@ public class MusicTable extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MainFrame.mm.addMusicList(m);
+			MainFrame.playMusicList.removeAll();
+			MainFrame.playMusicList.add(new MusicTable(MusicManager.musicList));
+			MainFrame.playMusicList.revalidate();
+			MainFrame.playMusicList.repaint();
 		}
 	}
 	
@@ -84,7 +69,10 @@ public class MusicTable extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MainFrame.mm.removeMusicList(m);
+			MainFrame.playMusicList.removeAll();
+			MainFrame.playMusicList.add(new MusicTable(MusicManager.musicList));
+			MainFrame.playMusicList.revalidate();
+			MainFrame.playMusicList.repaint();
 		}
 	}
-	
 }

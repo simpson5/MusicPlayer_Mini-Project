@@ -16,6 +16,13 @@ public class MusicPlay extends Thread {
 		this.c = c;
 	}
 	
+	public void close() {
+		for(int i = 0; i < c.size(); i++) {
+			mp.stop();
+			this.interrupt();
+		}
+	}
+	
 	public void next() {
 		mp.stop();
 		this.interrupt();
