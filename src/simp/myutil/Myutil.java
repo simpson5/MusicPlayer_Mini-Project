@@ -23,7 +23,7 @@ public class Myutil {
 	//panel 생성
 	public static JPanel panel(int w, int h) {
 		JPanel p = new JPanel();
-		p.setLayout(null);
+//		p.setLayout(null);
 		p.setSize(w, h);
 		p.setBackground(Color.lightGray);
 		return p;
@@ -46,5 +46,12 @@ public class Myutil {
 	//TextField 생성
 	public static void text(JTextField t, int w, int h, String title) {
 		t.setSize(w, h);
+	}
+	
+	public static void changePanel(JFrame parent, JPanel current, JPanel next) {
+		parent.remove(current);
+		parent.add(next);
+		parent.revalidate(); // 컨테이너 하위 계층 구조를 새로고침
+		parent.repaint(); //화면 다시 그리기
 	}
 }

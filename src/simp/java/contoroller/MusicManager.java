@@ -1,108 +1,125 @@
 package simp.java.contoroller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
-
-import simp.java.io.MultiPlay;
-import simp.java.io.MusicPlayer;
-import simp.java.io.SinglePlay;
+import simp.java.io.SetMusic;
 import simp.java.music.vo.Music;
+import simp.java.thread.MusicPlay;
 
 public class MusicManager {
-	//음악 리스트 출력용
-	public static ArrayList<Music> musicList = new ArrayList<>();
-	//음악 셋 재생용
+	//음악 셋 전체 목록
 	public static HashSet<Music> musicSet = new HashSet<>();
-	SinglePlay sp = new SinglePlay();
-	MultiPlay mp;
+	//음악 리스트 재생 목록
+	public static ArrayList<Music> musicList = new ArrayList<>();
+	public static MusicPlay mp;
 	
+	//메니저 객체 생성시 음악 저장
 	public MusicManager() {
-		setMusicList();
+		saveMusicSet();
 	}
 	
-	public void playMusicMulty(Collection<Music> c) {
-		mp = new MultiPlay(c);
+	//음악재생
+	public void playMusic() {
+		mp = new MusicPlay(musicList);
 		mp.start();
 	}
-
-	public void playMusic(Music m) {
-		//다시 초기화 하지 않으면 illegalthreadstateexception 오류가 나타난다.
-		sp = new SinglePlay(new MusicPlayer(m));
-		sp.start();
+	
+	//음악정지
+	public void nextMusic() {
+		try {
+			mp.next();
+		} catch(NullPointerException e) {
+			//실행된 mp가 없을 경우에
+		}
 	}
 	
 	public void stopMusic() {
-		sp.close();
-//		mp.close();
+		mp.stop();
 	}
 	
-	//음악 리스트 폴더에서 불러오기 나중에 자세히 보자
-	public void setMusicList() {
-		File fs = new File("Music");
-		//isDirectory가 무엇일까?
-		if(fs.isDirectory()) {
-			File list[] = fs.listFiles();
-			for(File f : list) {
-				try {
-					//mp3 파일 정보를 위해...
-					MP3File mp3 = (MP3File) AudioFileIO.read(f);
-					//태그를 이용해 정보 불러오기
-					AbstractID3v2Tag tag2 = mp3.getID3v2Tag();
-                    Tag tag = mp3.getTag();
-                    
-                    String musicName = tag.getFirst(FieldKey.TITLE);
-                    String musicSinger = tag.getFirst(FieldKey.ARTIST);
-                    String genre = tag.getFirst(FieldKey.GENRE);
-                    int playTime = mp3.getAudioHeader().getTrackLength();
-                    String releaseYear = tag.getFirst(FieldKey.YEAR);
-                    
-                    musicList.add(new Music(musicName, musicSinger, genre, playTime, releaseYear));
-				} catch (CannotReadException
-						| IOException 
-						| TagException 
-						| ReadOnlyFileException
-						| InvalidAudioFrameException e) {
-					e.printStackTrace();
-				}
-			}
+	//음악들 폴더에서 불러오기 나중에 자세히 보자
+	public void saveMusicSet() {
+		new SetMusic("Music", musicSet);
+	}
+	
+	//저장된 음악(전체 목록) 불러오기
+	public Set<Music> getMusicSet() {
+		return this.musicSet;
+	}
+	
+	//재생 목록에 음악 추가
+	public void addMusicList(Music m) {
+		//음악이 재생 목록에 없다면 추가
+		if(!musicList.contains(m)) {
+			musicList.add(m);
+			System.out.println(m.getMusicName() + "이 재생목록에 추가되었습니다.");
 		}
+		else {
+			System.out.println("이미 곡이 있습니다");
+		}
+		System.out.println(musicList);
 	}
 	
+	//재생 목록에 음악 제거
+	public void removeMusicList(Music m) {
+		//음악이 재생목록에 있다면 제거
+		if(musicList.contains(m)) {
+			musicList.remove(m);
+			System.out.println(m.getMusicName() + "이 재생목록에 제거되었습니다..");
+		}
+		else {
+			System.out.println("곡이 없습니다.");
+		}
+		System.out.println(musicList);
+	}
 	
-	
-	public ArrayList<Music> getMusicList() {
+	//재생 목록 불러오기
+	public List<Music> getMusicList(){
+		System.out.println(musicList);
 		return this.musicList;
 	}
 	
-	public void addMusicSet(Music m) {
-		musicSet.add(m);
-		System.out.println(m.getMusicName() + "이 재생목록에 추가되었습니다.");
+	//6. 특정곡이 있는지 검사하는 메소드 : 복수개의 결과가 나올수 있음. 
+//	(곡명일부로 검색해서 해당곡이 있다면, 곡정보(제목/가수)를 출력하고, 없다면, "검색결과가 없습니다"출력)
+//	+ searchMusicByTitle(String title) : List<Music>
+	public List<Music> searchMusicByTitle(String title) {
+    List<Music> list = new ArrayList<>();
+		for(int i=0; i<musicList.size(); i++) {
+			String oldTitle = musicList.get(i).getMusicName();
+			outer :
+			for(int j=0; j<=(oldTitle.length()-title.length()); j++) {
+				if(title.charAt(0) == oldTitle.charAt(j)) {
+					int count=0;
+					for(int x=0; x<title.length(); x++) {
+						if(title.charAt(x) == oldTitle.charAt(j+x)) {
+							count++;
+							if(count == title.length()) {
+								list.add(musicList.get(i));
+								break outer;
+							}
+						}
+					}	
+				}
+			}	
+	}	
+		if(list.size() == 0) System.out.println("검색 결과가 없습니다.");
+		return list;
 	}
-	
-	public void removeMusicSet(Music m) {
-		musicSet.remove(m);
-		System.out.println(m.getMusicName() + "이 재생목록에 제거되었습니다..");
-	}
-	
-	public HashSet<Music> getMusicSet(){
-		Iterator iter = musicSet.iterator();
-		while(iter.hasNext()) {
-			Music m = (Music) iter.next();
+//	7. 가수명으로 검색 메소드 : 복수개의 결과가 나올수 있음.
+//	+ searchMusicBySinger(String singer) : List<Music>
+	public List<Music> searchMusicBySinger(String singer) {
+		List<Music> list = new ArrayList<>();
+		int num=0;
+		for(int i=num; i<musicList.size(); i++) {
+			if(musicList.get(i).getMusicSinger().equals(singer)) {
+				list.add(musicList.get(i));
+				num = i+1;
+			}
 		}
-		return this.musicSet;
+		if(list.size() == 0) System.out.println("검색 결과가 없습니다.");
+		return list;
 	}
 }

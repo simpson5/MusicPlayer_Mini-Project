@@ -1,7 +1,5 @@
 package simp.java.music.vo;
 
-import java.time.LocalDate;
-
 public class Music {
 	private String musicName;
 	private String musicSinger;
@@ -17,6 +15,10 @@ public class Music {
 		this.genre = genre;
 		this.playTime = playTime;
 		this.releaseYear = releaseYear;
+	}
+
+	public Music() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getMusicName() {
@@ -61,8 +63,7 @@ public class Music {
 
 	@Override
 	public String toString() {
-		return "[" +musicName + "\t" + musicSinger + "\t" + genre + "\t"
-				+ playTime + "\t" + releaseYear + "]";
+		return 	musicName + "\t" + musicSinger + "\t" + genre ;
 	}
 
 	@Override
