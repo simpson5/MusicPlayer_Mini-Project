@@ -1,6 +1,8 @@
 package simp.java.view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,22 +13,51 @@ import javax.swing.JTextField;
 import simp.java.music.vo.Music;
 
 public class SearchPanel extends JPanel {
-	private JFrame parent;
+	JTextField inputMusic;
 
 	public SearchPanel(JFrame parent, Color c, String title) {
-		this.parent = parent; // 부모객체에 접근하기 위해 미리 필드로 저장
 		setBackground(c);
-		setBounds(0, 300, 400, 400);
+		setBounds(0, 300, 400, 50);
+		setLayout(null);
 		
-		JTextField inputEmail = new JTextField(10);
-		JButton searchBtn = new JButton("검색");
-		add(inputEmail);
-		add(searchBtn);
-		String singer = "";
+		inputMusic = new JTextField(10);
+		JButton searchMusicBtn = new JButton("제목 검색");
+		JButton searchSingerBtn = new JButton("가수 검색");
+		inputMusic.setBounds(0, 0, 100, 50);
+		searchSingerBtn.setBounds(200, 0, 100, 50);
+		searchMusicBtn.setBounds(100, 0, 100, 50);
+		searchSingerBtn.addActionListener(new SearchSingerbtnListener());
+		searchMusicBtn.addActionListener(new SearchMusicListener());
+		add(inputMusic);
+		add(searchSingerBtn);
+		add(searchMusicBtn);
 		
-//		List<Music> searchList = MainFrame.mm.searchMusicBySinger("벤");
-		
-//		add(new MusicTable(searchList));
+	}
+	
+	public class SearchSingerbtnListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String s = inputMusic.getText();
+			
+			MainFrame.resultPanel.removeAll();
+			MainFrame.resultPanel.add(new MusicTable(MainFrame.mm.searchMusicBySinger(s)));
+			MainFrame.resultPanel.revalidate();
+			MainFrame.resultPanel.repaint();
+			inputMusic.setText("");
+		}
+	}
+	
+	public class SearchMusicListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String s = inputMusic.getText();
+			
+			MainFrame.resultPanel.removeAll();
+			MainFrame.resultPanel.add(new MusicTable(MainFrame.mm.searchMusicByTitle(s)));
+			MainFrame.resultPanel.revalidate();
+			MainFrame.resultPanel.repaint();
+			inputMusic.setText("");
+		}
 	}
 
 }

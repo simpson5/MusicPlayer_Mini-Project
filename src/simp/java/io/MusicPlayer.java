@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import simp.java.music.vo.Music;
+import simp.java.thread.MusicPlay;
 
 public class MusicPlayer {
 	private Player player;
@@ -36,6 +37,8 @@ public class MusicPlayer {
 			player.play();
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
+		} catch ( ArrayIndexOutOfBoundsException e) {
+			System.out.println(MusicPlay.nowMusic);
 		}
 	}
 	

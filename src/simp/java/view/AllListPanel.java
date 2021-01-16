@@ -18,11 +18,11 @@ public class AllListPanel extends JPanel {
 	public AllListPanel(JFrame parent, Color c, String title) {
 		this.parent = parent;
 		setBackground(c);
-		setBounds(400, 100, 400, 600);
+		setBounds(400, 50, 400, 600);
 		
 		setLayout(null);
 		
-		Set<Music> allMusicSet = MusicManager.musicSet;
+		Set<Music> allMusicSet = MusicManager.managerMusicSet;
 		
 		add(new MusicTable(allMusicSet));
 	}

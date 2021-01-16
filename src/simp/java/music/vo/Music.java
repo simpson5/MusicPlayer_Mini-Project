@@ -63,7 +63,7 @@ public class Music {
 
 	@Override
 	public String toString() {
-		return 	musicName + "\t" + musicSinger + "\t" + genre ;
+		return 	musicName + " : " + musicSinger + " : " + genre ;
 	}
 
 	@Override

@@ -12,12 +12,12 @@ import simp.java.music.vo.Music;
 public class PlayListPanel extends JPanel {
 	private JFrame parent;
 	
-	List<Music> playMusicList = MusicManager.musicList;
+	List<Music> playMusicList = MusicManager.managerMusicList;
 
-	public PlayListPanel(MainFrame parent, Color c, String title) {
+	public PlayListPanel(JFrame parent, Color c, String title) {
 		this.parent = parent;
 		setBackground(c);
-		setBounds(400, 100, 400, 600);
+		setBounds(400, 50, 400, 600);
 		setLayout(null);
 	}
 }

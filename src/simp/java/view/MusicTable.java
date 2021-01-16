@@ -9,12 +9,9 @@ import java.util.Iterator;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
-import simp.myutil.TableCell;
 
 public class MusicTable extends JPanel{
 	private Collection<Music> c;
@@ -54,7 +51,7 @@ public class MusicTable extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			MainFrame.mm.addMusicList(m);
 			MainFrame.playMusicList.removeAll();
-			MainFrame.playMusicList.add(new MusicTable(MusicManager.musicList));
+			MainFrame.playMusicList.add(new MusicTable(MusicManager.managerMusicList));
 			MainFrame.playMusicList.revalidate();
 			MainFrame.playMusicList.repaint();
 		}
@@ -70,7 +67,7 @@ public class MusicTable extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			MainFrame.mm.removeMusicList(m);
 			MainFrame.playMusicList.removeAll();
-			MainFrame.playMusicList.add(new MusicTable(MusicManager.musicList));
+			MainFrame.playMusicList.add(new MusicTable(MusicManager.managerMusicList));
 			MainFrame.playMusicList.revalidate();
 			MainFrame.playMusicList.repaint();
 		}

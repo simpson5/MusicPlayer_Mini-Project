@@ -1,60 +1,76 @@
 package simp.java.thread;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.function.IntUnaryOperator;
 
+import simp.java.contoroller.MusicManager;
 import simp.java.io.MusicPlayer;
 import simp.java.music.vo.Music;
+import simp.java.view.AllListPanel;
 
 public class MusicPlay extends Thread {
 	
-	MusicPlayer mp;
-	Music m;
-	Collection<Music> c;
+	//현재 재생중인 곡
+	public static int nowMusic;
+	public static ArrayList<Music> playMusicList = MusicManager.managerMusicList;
+	public ArrayList<MusicPlayer> mpList = new ArrayList<>();
 	
-	public MusicPlay(Collection<Music> c) {
-		this.c = c;
+	public MusicPlay() {
+		for(Music music : playMusicList) {
+			System.out.println(music);
+			MusicPlayer mp = new MusicPlayer(music);
+			mpList.add(mp);
+		}
 	}
 	
 	public void close() {
-		for(int i = 0; i < c.size(); i++) {
-			mp.stop();
+		try {
+			mpList.get(nowMusic).stop();
+			System.out.println("정지" + nowMusic);
 			this.interrupt();
+		} catch (IndexOutOfBoundsException e) {
+			
 		}
+//		this.stop();
 	}
 	
-	public void next() {
-		mp.stop();
-		this.interrupt();
-	}
-
 	@Override
 	public void run() {
-		if(c.size() == 0) {
-			System.out.println("저장된 곡이 없다");
-			return;
+		try {
+			if(MusicManager.managerMusicList.size() == 0) {
+				System.out.println("저장된 곡이 없다");
+				return;
+			}
+			System.out.println(nowMusic);
+			for(int i = nowMusic; i < mpList.size(); i++) {
+				System.out.println("시작" + nowMusic + " : " + i);
+					try {
+						mpList.get(i).play();
+					} catch (ArrayIndexOutOfBoundsException e) {
+						System.out.println("어레이" + i + " : " + nowMusic);
+					}
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						nowMusic = i;
+						return;
+					}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("인덱스 " + nowMusic);
 		}
-		Iterator<Music> iter = c.iterator();
-		while(iter.hasNext()) {
-			Music m = iter.next();
-			mp = new MusicPlayer(m);
-			mp.play();
-		}
 	}
 
-	public MusicPlayer getMp() {
-		return mp;
+	public ArrayList<MusicPlayer> getMpList() {
+		return mpList;
 	}
 
-	public void setMp(MusicPlayer mp) {
-		this.mp = mp;
+	public void setMpList(ArrayList<MusicPlayer> mpList) {
+		this.mpList = mpList;
 	}
-
-	public Collection<Music> getC() {
-		return c;
-	}
-
-	public void setC(Collection<Music> c) {
-		this.c = c;
-	}
+	
+	
 }
