@@ -2,6 +2,7 @@ package simp.java.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -13,16 +14,15 @@ import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
 
 public class AllListPanel extends JPanel {
-	private JFrame parent;
 	
-	public AllListPanel(JFrame parent, Color c, String title) {
-		this.parent = parent;
-		setBackground(c);
-		setBounds(400, 50, 400, 600);
-		
+	Collection<Music> allMusicSet;
+	
+	public AllListPanel(Color c, String title) {
 		setLayout(null);
-		
-		Set<Music> allMusicSet = MusicManager.managerMusicSet;
+		setBackground(new Color(0,0,0,0));
+		setBounds(415, 90, 400, 600);
+
+		allMusicSet = MusicManager.managerMusicSet;
 		
 		add(new MusicTable(allMusicSet));
 	}

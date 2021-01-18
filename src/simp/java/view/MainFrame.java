@@ -1,85 +1,105 @@
 package simp.java.view;
 
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
-import simp.java.music.vo.Music;
 import simp.myutil.Myutil;
 
-//가장 처음 보이는 메인 프레임
-public class MainFrame extends JFrame {
-	//모든 프레임에서 볼 수 있게 스테틱으로 구현
-	//프레임을 판넬로 바꾸자.
+
+
+public class MainFrame extends JFrame{
 	public static MusicManager mm = new MusicManager();
-	public static JPanel allMusicList;
-	public static JPanel playMusicList;
+	public static JPanel allListPanel;
+	public static JPanel playListPanel;
 	public static JPanel searchPanel;
 	public static JPanel resultPanel;
 	public static JFrame main;
-	
-	//기본 생성자를 만들어 상속시에도 반복 되지 않게 한다?
-	//하지만 상속하지 않고 내부 클래스로 만들어 보자.
-	//그러면 내부 클래스가 너무 증가하기 때문에 매니저 생성자가 만들어 질때 뮤직 리스트를 생성해버리자고
-	//메인 프레임을 상속 시키자!
-	
+	public static JLayeredPane jlp;
+
 	public MainFrame(int w, int h, String title) {
-		Myutil.init(this, w, h, title);
+		setTitle(title);
+		setSize(800, 800);
+		setResizable(false);
+		setLocationRelativeTo(null);
+
+		//		초기화
+		getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main = this;
-		
+
+		//레이어드를 위해
+		jlp = new JLayeredPane();
+		jlp.setSize(800, 800);
+		jlp.setLayout(null);
+		jlp.setOpaque(false);
+
+		//배경 panel
+		JPanel background = new BackGround("Image/background.jpg");
+		background.setBounds(0, 0, 800, 800);
+
 		//음악 재생 panel
 		JPanel playPanel = new PlayPanel(this, null, "음악 재생");
-		add(playPanel);
-		//음악 검색 panel
-		searchPanel = new SearchPanel(this, Color.orange,"검색창");
-		add(searchPanel);
-		//음악 검색 결과 panel
-		resultPanel = new ResultPanel(this, Color.orange,"검색 목록");
-		add(resultPanel);
 		//음악 전체 목록 panel
-		allMusicList = new AllListPanel(this, Color.gray, "전체 목록");
-		add(allMusicList);
+		allListPanel = new AllListPanel(null, "전체 목록");
 		//음악 재생 목록 panel
-		playMusicList = new PlayListPanel(this, Color.lightGray,"재생 목록");
-		
+		playListPanel = new PlayListPanel(null,"재생 목록");
+		//음악 검색 panel
+		searchPanel = new SearchPanel(this, null,"검색창");
+		//음악 검색 결과 panel
+		resultPanel = new ResultPanel(this, null,"검색 목록");
+		//음악 리스트 버튼 panel
+		JPanel btnPanel = new JPanel();
+		btnPanel.setBounds(415, 30, 350, 50);
+		btnPanel.setBackground(new Color(0, 0, 0, 0));
+		btnPanel.setLayout(null);
+
 		JButton AllListButton = new JButton("전체 목록");
-		AllListButton.setBounds(400, 0, 100, 50);
-		AllListButton.addActionListener(new ChangePanel2());
-		add(AllListButton);
-		
+		AllListButton.setBounds(0, 0, 80, 50);
 		JButton playListButton = new JButton("재생 목록");
-		playListButton.setBounds(500, 0, 100, 50);
-		playListButton.addActionListener(new ChangePanel());
-		add(playListButton);
+		playListButton.setBounds(90, 0, 80, 50);
+		JButton suffleListButton = new JButton("재생 목록");
+		suffleListButton.setBounds(180, 0, 80, 50);
+		JButton sortListButton = new JButton("재생 목록");
+		sortListButton.setBounds(270, 0 , 80,50);
 		
-		ImagePanel background = new ImagePanel("Image/background.jpg");
-//		pack();// 실제 컴포넌트의 크기에 맞게 컨테이너의 크기를 확대, 축소 한다
+		btnPanel.add(AllListButton);
+		btnPanel.add(playListButton);
+		btnPanel.add(suffleListButton);
+		btnPanel.add(sortListButton);
+		
+		playListButton.addActionListener(new ChangePanel());
+		AllListButton.addActionListener(new ChangePanel2());
+		
+		jlp.add(background, new Integer(0));
+		jlp.add(playPanel, new Integer(300));
+		jlp.add(btnPanel, new Integer(300));
+		jlp.add(allListPanel, new Integer(300));
+		jlp.add(playListPanel, new Integer(300));
+		jlp.add(searchPanel, new Integer(300));
+		jlp.add(resultPanel, new Integer(300));
+
+		getContentPane().add(jlp);
 	}
-	
-	//각 버튼들 -- 상속을 했기때문에 여기서 일괄적으로 구현만해도 잘 돌아간다!
-	//하지만 이제 상속이 아니지...
-	
-	public static class ChangePanel implements ActionListener {
+
+	public class ChangePanel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Myutil.changePanel(main, allMusicList, playMusicList);
+			Myutil.changePanel(jlp, allListPanel, playListPanel);
 		}
 	}
-	
-	public static class ChangePanel2 implements ActionListener {
+
+	public class ChangePanel2 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Myutil.changePanel(main, playMusicList, allMusicList);
+			Myutil.changePanel(jlp, playListPanel, allListPanel);
 		}
 	}
-	
-	
 }

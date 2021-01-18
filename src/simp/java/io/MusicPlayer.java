@@ -48,6 +48,10 @@ public class MusicPlayer {
 			play = false;
 		}
 	}
+	
+	public int getTime() {
+		return player.getPosition();
+	}
 
 	public Player getPlayer() {
 		return player;

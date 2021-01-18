@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 public class ResultPanel extends JPanel {
 	public ResultPanel(JFrame parent, Color c, String title) {
-		setBackground(c);
-		setBounds(0, 350, 400, 400);
+		setBackground(new Color(0,0,0,0));
+		setBounds(15, 355, 400, 400);
 		setLayout(null);
 	}
 }

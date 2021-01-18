@@ -16,8 +16,8 @@ public class SearchPanel extends JPanel {
 	JTextField inputMusic;
 
 	public SearchPanel(JFrame parent, Color c, String title) {
-		setBackground(c);
-		setBounds(0, 300, 400, 50);
+		setBackground(new Color(0,0,0,0));
+		setBounds(50, 250, 400, 50);
 		setLayout(null);
 		
 		inputMusic = new JTextField(10);
@@ -43,6 +43,8 @@ public class SearchPanel extends JPanel {
 			MainFrame.resultPanel.add(new MusicTable(MainFrame.mm.searchMusicBySinger(s)));
 			MainFrame.resultPanel.revalidate();
 			MainFrame.resultPanel.repaint();
+			//상위 항목 다시그리기 하지 않는 다면 큰일이 난다!
+			MainFrame.jlp.repaint();
 			inputMusic.setText("");
 		}
 	}
@@ -56,6 +58,8 @@ public class SearchPanel extends JPanel {
 			MainFrame.resultPanel.add(new MusicTable(MainFrame.mm.searchMusicByTitle(s)));
 			MainFrame.resultPanel.revalidate();
 			MainFrame.resultPanel.repaint();
+			//상위 항목 다시그리기
+			MainFrame.jlp.repaint();
 			inputMusic.setText("");
 		}
 	}

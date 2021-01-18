@@ -8,6 +8,7 @@ import java.util.Set;
 import simp.java.io.SetMusic;
 import simp.java.music.vo.Music;
 import simp.java.thread.MusicPlay;
+import simp.java.thread.MusicPlaybar;
 import simp.java.view.PlayPanel;
 
 public class MusicManager {
@@ -15,7 +16,9 @@ public class MusicManager {
 	public static HashSet<Music> managerMusicSet = new HashSet<>();
 	//음악 리스트 재생 목록
 	public static ArrayList<Music> managerMusicList = new ArrayList<>();
+	//
 	public MusicPlay mp;
+	public Thread mpb;
 	
 	//메니저 객체 생성시 음악 저장
 	public MusicManager() {
@@ -28,6 +31,8 @@ public class MusicManager {
 		mp.nowMusic = 0;
 		mp = new MusicPlay();
 		mp.start();
+		mpb = new Thread(new MusicPlaybar(mp.nowMusic));
+		mpb.start();
 	}
 	
 	//음악정지
@@ -148,5 +153,15 @@ public class MusicManager {
 		if(list.size() == 0) System.out.println("검색 결과가 없습니다.");
 		System.out.println(list);
 		return list;
+	}
+	
+	//음악 재생 리스트 섞기
+	public List<Music> suffleMusicList(){
+		return managerMusicList;
+	}
+	
+	//음악 재생 리스트 제목 정렬
+	public List<Music> sortMusicList(){
+		return managerMusicList;
 	}
 }

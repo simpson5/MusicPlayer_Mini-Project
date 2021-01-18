@@ -12,38 +12,36 @@ import javax.swing.JPanel;
 import simp.java.thread.MusicPlay;
 
 public class PlayPanel extends JPanel {
-	private JFrame parent;
 	JLabel musicinfo;
 	
 	public PlayPanel(JFrame parent, Color c, String title) {
-		this.parent = parent; // 부모객체에 접근하기 위해 미리 필드로 저장
-		setBackground(c);
+		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
 		//크기, 위치 지정
-		setBounds(20, 100, 400, 200);
+		setBounds(8, 100, 400, 200);
 		//재생버튼
 		JButton musicStart = new JButton("재생");
 		musicStart.addActionListener(new musicStartBtnListner());
-		musicStart.setBounds(20, 50, 80, 50);
+		musicStart.setBounds(10, 50, 70, 50);
 		//정지버튼
 		JButton musicStop = new JButton("정지");
 		musicStop.addActionListener(new musicStopBtnListner());
-		musicStop.setBounds(100, 50, 80, 50);
+		musicStop.setBounds(85, 50, 70, 50);
 		//다음곡
 		JButton musicNext = new JButton("다음");
 		musicNext.addActionListener(new musicNextBtnListner());
-		musicNext.setBounds(180, 50, 80, 50);
+		musicNext.setBounds(160, 50, 70, 50);
 		//이전곡
 		JButton musicPrevious = new JButton("이전");
 		musicPrevious.addActionListener(new musicPreviousBtnListener());
-		musicPrevious.setBounds(260, 50, 80, 50);
+		musicPrevious.setBounds(235, 50, 70, 50);
 		//재생바
 		JButton musicPlayBar = new JButton();
 		//현재 음악정보
 		JButton musicInfoBtn = new JButton("정보");
 		musicInfoBtn.addActionListener(new musicInfoBtnListener());
+		musicInfoBtn.setBounds(310, 50, 70, 50);
 		musicinfo = new JLabel();
-		musicinfo.setBounds(30, 60, 300, 50);
 		
 		add(musicStart);
 		add(musicStop);
@@ -57,7 +55,9 @@ public class PlayPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			musicinfo.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).toString());
-			musicinfo.setBounds(30, 60, 300, 50);
+			MainFrame.jlp.repaint();
+			musicinfo.setForeground(Color.white);
+			musicinfo.setBounds(0, 0, 300, 50);
 		}
 		
 	}

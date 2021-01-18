@@ -46,7 +46,8 @@ public class MusicPlay extends Thread {
 			}
 			System.out.println(nowMusic);
 			for(int i = nowMusic; i < mpList.size(); i++) {
-				System.out.println("시작" + nowMusic + " : " + i);
+				//오류 검사 용도
+				//System.out.println("시작" + nowMusic + " : " + i);
 					try {
 						mpList.get(i).play();
 					} catch (ArrayIndexOutOfBoundsException e) {
