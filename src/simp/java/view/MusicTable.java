@@ -1,42 +1,50 @@
 package simp.java.view;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
 
 public class MusicTable extends JPanel{
-	private JPanel list;
 	private Collection<Music> c;
 
 	public MusicTable(Collection<Music> c) {
 		this.c = c;
-		setBounds(0, 0, 400, 600);
-		setLayout(null);
+		setBounds(0, 0, 400, 800);
+		//layout이 null이 panel은 scrollpane이 먹히지 않는다.
+		setLayout(new GridLayout(10, 0, 0, 10));
 		setBackground(new Color(0,0,0,0));
 
 		Iterator<Music> iter = c.iterator();
 		int i = 0;
 		while(iter.hasNext()) {
 			Music m = iter.next();
-			JLabel l = new JLabel(m.toString());
-			JButton add = new JButton("추가");
-			JButton remove = new JButton("제거");
+			JLabel l = new JLabel(m.getMusicName());
+			JButton add = new JButton();
+			JButton remove = new JButton();
 			add.addActionListener(new addBtnListner(m));
 			remove.addActionListener(new removeBtnListner(m));
-			l.setBounds(0, i*50, 350, 50);
-			l.setForeground(Color.white);
-			add.setBounds(230, 0, 60, 40);
-			remove.setBounds(290, 0, 60, 40);
+//			l.setBounds(0, 50 * i, 350, 50);
+			l.setForeground(new Color(67,199,1));
+			l.setFont(MainFrame.font);
+			add.setBounds(220, 0, 60, 40);
+			add.setIcon(new ImageIcon("Image/add.jpg"));
+			remove.setBounds(280, 0, 60, 40);
+			remove.setIcon(new ImageIcon("Image/remove.jpg"));
 			l.add(add);
 			l.add(remove);
 			add(l);

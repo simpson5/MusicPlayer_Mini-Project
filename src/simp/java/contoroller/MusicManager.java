@@ -10,7 +10,6 @@ import java.util.Set;
 import simp.java.io.SetMusic;
 import simp.java.music.vo.Music;
 import simp.java.thread.MusicPlay;
-import simp.java.thread.MusicPlaybar;
 
 public class MusicManager {
 	//음악 셋 전체 목록
@@ -19,8 +18,6 @@ public class MusicManager {
 	public static ArrayList<Music> managerMusicList = new ArrayList<>();
 	//음악 재생 쓰레드
 	public MusicPlay mp;
-	//음악 재생 바 쓰레드
-	public Thread mpb;
 	
 	//메니저 객체 생성시 음악 저장
 	public MusicManager() {
@@ -33,8 +30,6 @@ public class MusicManager {
 		mp.nowMusic = 0;
 		mp = new MusicPlay();
 		mp.start();
-		mpb = new Thread(new MusicPlaybar(mp.nowMusic));
-		mpb.start();
 	}
 	
 	//다음 곡으로 가기

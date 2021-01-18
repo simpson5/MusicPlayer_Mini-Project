@@ -5,10 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 
 import simp.java.music.vo.Music;
 
@@ -21,11 +24,16 @@ public class SearchPanel extends JPanel {
 		setLayout(null);
 		
 		inputMusic = new JTextField(10);
-		JButton searchMusicBtn = new JButton("제목 검색");
-		JButton searchSingerBtn = new JButton("가수 검색");
-		inputMusic.setBounds(0, 0, 100, 50);
-		searchSingerBtn.setBounds(200, 0, 100, 50);
-		searchMusicBtn.setBounds(100, 0, 100, 50);
+		JButton searchMusicBtn = new JButton();
+		JButton searchSingerBtn = new JButton();
+		inputMusic.setBounds(0, 5, 100, 40);
+		inputMusic.setBackground(Color.black);
+		inputMusic.setForeground(new Color(67,199,1));
+		inputMusic.setBorder(new LineBorder(Color.black, 8, true));
+		searchSingerBtn.setBounds(210, 0, 90, 50);
+		searchSingerBtn.setIcon(new ImageIcon("Image/sing.png"));
+		searchMusicBtn.setBounds(110, 0, 90, 50);
+		searchMusicBtn.setIcon(new ImageIcon("Image/song.png"));
 		searchSingerBtn.addActionListener(new SearchSingerbtnListener());
 		searchMusicBtn.addActionListener(new SearchMusicListener());
 		add(inputMusic);

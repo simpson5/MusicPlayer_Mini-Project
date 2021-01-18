@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -19,16 +20,18 @@ public class MainFrame extends JFrame{
 	public static MusicManager mm = new MusicManager();
 	public static JPanel allListPanel;
 	public static JPanel playListPanel;
+	public static JPanel playPanel;
 	public static JPanel searchPanel;
 	public static JPanel resultPanel;
 	public static JFrame main;
 	public static JLayeredPane jlp;
 	public static JPanel listPanel;
+	public static Font font = new Font("Sans Serif", Font.PLAIN, 15);
 
 	public MainFrame(int w, int h, String title) {
 		setTitle(title);
 		setSize(800, 800);
-		setResizable(false);
+//		setResizable(false);
 		setLocationRelativeTo(null);
 
 		//		초기화
@@ -47,7 +50,7 @@ public class MainFrame extends JFrame{
 		background.setBounds(0, 0, 800, 800);
 
 		//음악 재생 panel
-		JPanel playPanel = new PlayPanel(this, null, "음악 재생");
+		playPanel = new PlayPanel(this, null, "음악 재생");
 		//음악 목록 panel
 		listPanel = new JPanel();
 		listPanel.setBackground(new Color(0,0,0,0));
@@ -67,14 +70,18 @@ public class MainFrame extends JFrame{
 		btnPanel.setBackground(new Color(0, 0, 0, 0));
 		btnPanel.setLayout(null);
 
-		JButton AllListButton = new JButton("전체");
+		JButton AllListButton = new JButton();
 		AllListButton.setBounds(0, 0, 80, 50);
-		JButton playListButton = new JButton("재생");
+		AllListButton.setIcon(new ImageIcon("Image/alllist.jpg"));
+		JButton playListButton = new JButton();
 		playListButton.setBounds(90, 0, 80, 50);
-		JButton shuffleListButton = new JButton("셔플");
+		playListButton.setIcon(new ImageIcon("Image/playlist.jpg"));
+		JButton shuffleListButton = new JButton();
 		shuffleListButton.setBounds(180, 0, 80, 50);
-		JButton sortListButton = new JButton("순차");
-		sortListButton.setBounds(270, 0 , 80,50);
+		shuffleListButton.setIcon(new ImageIcon("Image/shuffle.png"));
+		JButton sortListButton = new JButton();
+		sortListButton.setBounds(270, 0 , 80, 50);
+		sortListButton.setIcon(new ImageIcon("Image/sort.jpg"));
 		
 		btnPanel.add(AllListButton);
 		btnPanel.add(playListButton);
@@ -89,7 +96,7 @@ public class MainFrame extends JFrame{
 		listPanel.add(allListPanel);
 		
 		jlp.add(background, new Integer(0));
-		jlp.add(playPanel, new Integer(300));
+		jlp.add(playPanel, new Integer(200));
 		jlp.add(btnPanel, new Integer(300));
 		jlp.add(listPanel, new Integer(300));
 		jlp.add(searchPanel, new Integer(300));
