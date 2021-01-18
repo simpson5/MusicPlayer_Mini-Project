@@ -1,6 +1,8 @@
 package simp.java.contoroller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,15 +11,15 @@ import simp.java.io.SetMusic;
 import simp.java.music.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.java.thread.MusicPlaybar;
-import simp.java.view.PlayPanel;
 
 public class MusicManager {
 	//음악 셋 전체 목록
 	public static HashSet<Music> managerMusicSet = new HashSet<>();
 	//음악 리스트 재생 목록
 	public static ArrayList<Music> managerMusicList = new ArrayList<>();
-	//
+	//음악 재생 쓰레드
 	public MusicPlay mp;
+	//음악 재생 바 쓰레드
 	public Thread mpb;
 	
 	//메니저 객체 생성시 음악 저장
@@ -35,7 +37,7 @@ public class MusicManager {
 		mpb.start();
 	}
 	
-	//음악정지
+	//다음 곡으로 가기
 	public void nextMusic() {
 		stopMusic();
 		mp = new MusicPlay();
@@ -43,6 +45,7 @@ public class MusicManager {
 		mp.start();
 	}
 	
+	//이전 곡으로 가기
 	public void previousMusic() {
 		stopMusic();
 		if(mp.nowMusic == 0) {
@@ -54,6 +57,7 @@ public class MusicManager {
 		mp.start();
 	}
 	
+	//음악정지
 	public void stopMusic() {
 		try {
 			mp.close();
@@ -156,12 +160,19 @@ public class MusicManager {
 	}
 	
 	//음악 재생 리스트 섞기
-	public List<Music> suffleMusicList(){
+	public List<Music> shuffleMusicList(){
+		
+		Collections.shuffle(managerMusicList);
+		
 		return managerMusicList;
 	}
 	
 	//음악 재생 리스트 제목 정렬
 	public List<Music> sortMusicList(){
+		
+		Comparator<Music> comp = new MusicNameAscending();
+		Collections.sort(managerMusicList, comp);
+		
 		return managerMusicList;
 	}
 }

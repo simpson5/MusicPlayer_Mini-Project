@@ -17,8 +17,8 @@ public class Myutil {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public static void changePanel(JLayeredPane parent, JPanel current, JPanel next) {
-		parent.remove(current);
+	public static void changePanel(JPanel parent, JPanel next) {
+		parent.removeAll();
 		parent.add(next , new Integer(300));
 		parent.revalidate(); // 컨테이너 하위 계층 구조를 새로고침
 		parent.updateUI(); //화면 다시 그리기

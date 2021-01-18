@@ -23,6 +23,7 @@ public class MainFrame extends JFrame{
 	public static JPanel resultPanel;
 	public static JFrame main;
 	public static JLayeredPane jlp;
+	public static JPanel listPanel;
 
 	public MainFrame(int w, int h, String title) {
 		setTitle(title);
@@ -47,6 +48,11 @@ public class MainFrame extends JFrame{
 
 		//음악 재생 panel
 		JPanel playPanel = new PlayPanel(this, null, "음악 재생");
+		//음악 목록 panel
+		listPanel = new JPanel();
+		listPanel.setBackground(new Color(0,0,0,0));
+		listPanel.setBounds(415, 90, 400, 600);
+		listPanel.setLayout(null);
 		//음악 전체 목록 panel
 		allListPanel = new AllListPanel(null, "전체 목록");
 		//음악 재생 목록 panel
@@ -61,45 +67,76 @@ public class MainFrame extends JFrame{
 		btnPanel.setBackground(new Color(0, 0, 0, 0));
 		btnPanel.setLayout(null);
 
-		JButton AllListButton = new JButton("전체 목록");
+		JButton AllListButton = new JButton("전체");
 		AllListButton.setBounds(0, 0, 80, 50);
-		JButton playListButton = new JButton("재생 목록");
+		JButton playListButton = new JButton("재생");
 		playListButton.setBounds(90, 0, 80, 50);
-		JButton suffleListButton = new JButton("재생 목록");
-		suffleListButton.setBounds(180, 0, 80, 50);
-		JButton sortListButton = new JButton("재생 목록");
+		JButton shuffleListButton = new JButton("셔플");
+		shuffleListButton.setBounds(180, 0, 80, 50);
+		JButton sortListButton = new JButton("순차");
 		sortListButton.setBounds(270, 0 , 80,50);
 		
 		btnPanel.add(AllListButton);
 		btnPanel.add(playListButton);
-		btnPanel.add(suffleListButton);
+		btnPanel.add(shuffleListButton);
 		btnPanel.add(sortListButton);
 		
-		playListButton.addActionListener(new ChangePanel());
-		AllListButton.addActionListener(new ChangePanel2());
+		AllListButton.addActionListener(new ChangePanel());
+		playListButton.addActionListener(new ChangePanel2());
+		shuffleListButton.addActionListener(new ChangePanel3());
+		sortListButton.addActionListener(new ChangePanel4());
+		
+		listPanel.add(allListPanel);
 		
 		jlp.add(background, new Integer(0));
 		jlp.add(playPanel, new Integer(300));
 		jlp.add(btnPanel, new Integer(300));
-		jlp.add(allListPanel, new Integer(300));
-		jlp.add(playListPanel, new Integer(300));
+		jlp.add(listPanel, new Integer(300));
 		jlp.add(searchPanel, new Integer(300));
 		jlp.add(resultPanel, new Integer(300));
 
-		getContentPane().add(jlp);
+		add(jlp);
 	}
 
 	public class ChangePanel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Myutil.changePanel(jlp, allListPanel, playListPanel);
+			Myutil.changePanel(listPanel, allListPanel);
 		}
 	}
 
 	public class ChangePanel2 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Myutil.changePanel(jlp, playListPanel, allListPanel);
+			Myutil.changePanel(listPanel, playListPanel);
+		}
+	}
+	
+	public class ChangePanel3 implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mm.shuffleMusicList();
+			MainFrame.playListPanel.removeAll();
+			MainFrame.playListPanel.add(new MusicTable(MusicManager.managerMusicList));
+			MainFrame.playListPanel.revalidate();
+			MainFrame.playListPanel.repaint();			
+			MainFrame.jlp.revalidate();
+			MainFrame.jlp.repaint();
+			Myutil.changePanel(listPanel, playListPanel);
+		}
+	}
+	
+	public class ChangePanel4 implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mm.sortMusicList();
+			MainFrame.playListPanel.removeAll();
+			MainFrame.playListPanel.add(new MusicTable(MusicManager.managerMusicList));
+			MainFrame.playListPanel.revalidate();
+			MainFrame.playListPanel.repaint();			
+			MainFrame.jlp.revalidate();
+			MainFrame.jlp.repaint();
+			Myutil.changePanel(listPanel, playListPanel);
 		}
 	}
 }

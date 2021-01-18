@@ -15,7 +15,7 @@ public class PlayListPanel extends JPanel {
 	public PlayListPanel(Color c, String title) {
 		setLayout(null);
 		setBackground(new Color(0,0,0,0));
-		setBounds(415, 90, 400, 600);
+		setBounds(0, 0, 400, 600);
 		playMusicList = MusicManager.managerMusicList;
 		add(new MusicTable(playMusicList));
 	}
