@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.myutil.MyUtil;
 

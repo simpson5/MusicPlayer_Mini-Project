@@ -14,7 +14,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 
 //폴더에 존재하는 mp3 파일을 가져와서 객체로 저장해주는 클래스
 public class SetMusic {
@@ -30,16 +30,19 @@ public class SetMusic {
 			for(File f : list) {
 				try {
 					//파일을 mp3 mp3파일로 변환하여 객체로 만듦
+					//jaudiotagger 라이브러리 사용한 부분
 					MP3File mp3 = (MP3File) AudioFileIO.read(f);
 					//태그를 이용해 정보 불러오기
 //					AbstractID3v2Tag tag2 = mp3.getID3v2Tag();
 					//해당 mp3 파일에 태그를 불러옴
+					//jaudiotagger 라이브러리 사용한 부분
                     Tag tag = mp3.getTag();
                     
                     //부러온 태그를 바탕으로 Music 객체를 생성한다.
                     String musicName = tag.getFirst(FieldKey.TITLE);
                     String musicSinger = tag.getFirst(FieldKey.ARTIST);
                     String genre = tag.getFirst(FieldKey.GENRE);
+                    //단위는 초
                     int playTime = mp3.getAudioHeader().getTrackLength();
                     String releaseYear = tag.getFirst(FieldKey.YEAR);
                     
@@ -47,8 +50,8 @@ public class SetMusic {
 				
                 //많은 예외들 ...
 				} catch (CannotReadException
-						| IOException 
-						| TagException 
+						| IOException
+						| TagException
 						| ReadOnlyFileException
 						| InvalidAudioFrameException e) {
 					e.printStackTrace();

@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.swing.JLabel;
 
 import simp.java.io.SetMusic;
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.java.thread.MusicPlayBar;
 import simp.java.view.Info;
@@ -127,13 +127,19 @@ public class MusicManager {
 //	(곡명일부로 검색해서 해당곡이 있다면, 곡정보(제목/가수)를 출력하고, 없다면, "검색결과가 없습니다"출력)
 //	+ searchMusicByTitle(String title) : List<Music>
 	public List<Music> searchMusicByTitle(String title) {
+		//셋 형식을 리스트 형식으로 바꿔줌
 		List<Music> searchList = new ArrayList<>(managerMusicSet);
+		//검색 결과물 리스트
 		List<Music> list = new ArrayList<>();
+		//리스트에서 하나씩 검사하는 for문
 		for(int i=0; i<searchList.size(); i++) {
+			//검사할 곡의 제목을 저장
 			String oldTitle = searchList.get(i).getMusicName();
+			//검사할 곡의 제목이 검사할 내용인 title을 포함하는지 확인
 			if(oldTitle.contains(title)) {
 				list.add(searchList.get(i));
 			}
+			//위의 코드로 수정
 //			outer :
 //			for(int j=0; j<=(oldTitle.length()-title.length()); j++) {
 //				if(title.charAt(0) == oldTitle.charAt(j)) {
@@ -166,6 +172,7 @@ public class MusicManager {
 				list.add(searchList.get(i));
 			}
 		}
+		//위의 코드로 수정
 //		int num=0;
 //		for(int i=num; i<searchList.size(); i++) {
 //			if(searchList.get(i).getMusicSinger().equals(singer)) {
@@ -180,6 +187,7 @@ public class MusicManager {
 	//음악 재생 리스트 섞기
 	public List<Music> shuffleMusicList(){
 		
+		//기본 메서드를 이용하여 셔플함
 		Collections.shuffle(managerMusicList);
 		
 		MyUtil.infoChanger("셔플 완료");
@@ -189,6 +197,7 @@ public class MusicManager {
 	//음악 재생 리스트 제목 정렬
 	public List<Music> sortMusicList(){
 		
+		//커스텀 메서드를 이용하여 정렬함
 		Comparator<Music> comp = new MusicNameAscending();
 		Collections.sort(managerMusicList, comp);
 		

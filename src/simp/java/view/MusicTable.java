@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 
 import simp.java.contoroller.MusicManager;
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 import simp.myutil.MyUtil;
 
 //음악 목록을 불러오는 클래스

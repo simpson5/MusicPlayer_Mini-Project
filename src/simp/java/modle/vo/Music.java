@@ -1,4 +1,4 @@
-package simp.java.music.vo;
+package simp.java.modle.vo;
 
 //음악 객체 클래스
 public class Music {

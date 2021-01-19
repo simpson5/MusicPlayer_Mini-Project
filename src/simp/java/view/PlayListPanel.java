@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 
 public class PlayListPanel extends JPanel {
 	

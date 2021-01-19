@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.myutil.MyUtil;
 
@@ -29,7 +29,8 @@ public class Info extends JPanel {
 		
 		musicName = new JLabel(m.getMusicName());
 		musicSinger = new JLabel(m.getMusicSinger());
-		musicGenre = new JLabel(m.getGenre() +  "  /  "+ min + " : " +sec);
+		musicGenre = new JLabel(m.getGenre() +  "  /  "+ m.getReleaseYear() 
+					+ " / " + min + " : " +sec);
 		System.out.println(m);
 		
 		musicName.setBounds(0, 0, 300, 20);

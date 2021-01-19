@@ -8,8 +8,9 @@ import java.util.function.IntUnaryOperator;
 
 import simp.java.contoroller.MusicManager;
 import simp.java.io.MusicPlayer;
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 import simp.java.view.AllListPanel;
+import simp.myutil.MyUtil;
 
 //음악 재생을 위한 쓰레드, 쓰레드로 만들지 않을 경우 음악이 재생중일때 모든 동작이 멈춘다.
 public class MusicPlay extends Thread {
@@ -52,7 +53,7 @@ public class MusicPlay extends Thread {
 		//저장된 곡이 없다면 그대로 종료
 		try {
 			if(playMusicList.size() == 0) {
-//				System.out.println("저장된 곡이 없다");
+				MyUtil.infoChanger("재생할 곡이 없습니다.");
 				return;
 			}
 			//현재 재생중인 곡

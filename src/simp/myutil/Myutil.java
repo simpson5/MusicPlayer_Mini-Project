@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import simp.java.contoroller.MusicManager;
-import simp.java.music.vo.Music;
+import simp.java.modle.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.java.view.Info;
 import simp.java.view.MainFrame;
@@ -79,6 +79,15 @@ public class MyUtil {
 		MainFrame.playBarPanel.repaint();
 		//레이어드를 사용했기 때문에(?) 상위 항목을 반드시 다시 그려줘야 한다.
 		MainFrame.jlp.revalidate();
+		MainFrame.jlp.repaint();
+	}
+	
+	public static void changeResultPanel(Collection<Music> m)  {
+		MainFrame.resultPanel.removeAll();
+		MainFrame.resultPanel.add(new MusicTable(m));
+		MainFrame.resultPanel.revalidate();
+		MainFrame.resultPanel.repaint();
+		//상위 항목 다시그리기 하지 않는 다면 큰일이 난다!
 		MainFrame.jlp.repaint();
 	}
 	

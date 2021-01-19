@@ -140,9 +140,13 @@ public class MainFrame extends JFrame{
 	public class ChangePanel3 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			//셔플을 실행함
 			mm.shuffleMusicList();
+			//셔플 결과 실행을 확인 + 실제 panel 셔플을 그려줌
 			MyUtil.changePlayPanel(MusicManager.managerMusicList);
+			//셔플 panel을 열어주는 부분
 			MyUtil.changePanel(listPanel, playListPanel);
+			mm.playMusic();
 		}
 	}
 	
@@ -152,6 +156,7 @@ public class MainFrame extends JFrame{
 			mm.sortMusicList();
 			MyUtil.changePlayPanel(MusicManager.managerMusicList);
 			MyUtil.changePanel(listPanel, playListPanel);
+			mm.playMusic();
 		}
 	}
 }
