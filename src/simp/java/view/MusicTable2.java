@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
 
-public class MusicTable extends JPanel{
+public class MusicTable2 extends JPanel{
 	private Collection<Music> c;
 
-	public MusicTable(Collection<Music> c) {
+	public MusicTable2(Collection<Music> c) {
 		this.c = c;
 		setBounds(0, 0, 400, 800);
 		setBackground(new Color(0,0,0,0));

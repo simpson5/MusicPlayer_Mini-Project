@@ -23,6 +23,7 @@ public class MainFrame extends JFrame{
 	public static JPanel playPanel;
 	public static JPanel searchPanel;
 	public static JPanel resultPanel;
+	public static JPanel playBarPanel;
 	public static JFrame main;
 	public static JLayeredPane jlp;
 	public static JPanel listPanel;
@@ -54,12 +55,15 @@ public class MainFrame extends JFrame{
 		//음악 목록 panel
 		listPanel = new JPanel();
 		listPanel.setBackground(new Color(0,0,0,0));
-		listPanel.setBounds(415, 90, 400, 600);
+		listPanel.setBounds(420, 90, 400, 600);
 		listPanel.setLayout(null);
 		//음악 전체 목록 panel
 		allListPanel = new AllListPanel(null, "전체 목록");
 		//음악 재생 목록 panel
 		playListPanel = new PlayListPanel(null,"재생 목록");
+		
+		listPanel.add(allListPanel);
+		
 		//음악 검색 panel
 		searchPanel = new SearchPanel(this, null,"검색창");
 		//음악 검색 결과 panel
@@ -93,7 +97,8 @@ public class MainFrame extends JFrame{
 		shuffleListButton.addActionListener(new ChangePanel3());
 		sortListButton.addActionListener(new ChangePanel4());
 		
-		listPanel.add(allListPanel);
+		
+		playBarPanel = new PlayBarPanel();
 		
 		jlp.add(background, new Integer(0));
 		jlp.add(playPanel, new Integer(200));
@@ -101,6 +106,7 @@ public class MainFrame extends JFrame{
 		jlp.add(listPanel, new Integer(300));
 		jlp.add(searchPanel, new Integer(300));
 		jlp.add(resultPanel, new Integer(300));
+		jlp.add(playBarPanel, new Integer(400));
 
 		add(jlp);
 	}

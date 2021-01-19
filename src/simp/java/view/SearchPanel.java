@@ -1,6 +1,8 @@
 package simp.java.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -9,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
@@ -46,6 +49,11 @@ public class SearchPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s = inputMusic.getText();
+			
+//			JScrollPane jsp = new JScrollPane(new MusicTable(MainFrame.mm.searchMusicBySinger(s)), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//			jsp.setLocation(0, 0);
+//			jsp.setPreferredSize((new Dimension(340, 375)));
+//			jsp.setBackground(new Color(0,0,0,0));
 			
 			MainFrame.resultPanel.removeAll();
 			MainFrame.resultPanel.add(new MusicTable(MainFrame.mm.searchMusicBySinger(s)));

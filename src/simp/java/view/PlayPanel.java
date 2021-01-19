@@ -83,9 +83,13 @@ public class PlayPanel extends JPanel {
 	public class musicInfoBtnListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			int sec = (int)MusicPlay.playMusicList.get(MusicPlay.nowMusic).getPlayTime();
+			int min = sec/60;
+			sec -= min * 60;
 			musicName.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getMusicName());
 			musicSinger.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getMusicSinger());			
-			musicGenre.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getGenre());
+			musicGenre.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getGenre() + 
+					"  /  "+ min + " : " +sec);
 			musicinfo.removeAll();
 			musicinfo.revalidate();
 			musicinfo.repaint();

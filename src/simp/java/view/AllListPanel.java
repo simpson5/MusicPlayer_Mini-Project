@@ -1,7 +1,10 @@
 package simp.java.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.Collection;
 
 import javax.swing.JPanel;
@@ -15,18 +18,17 @@ public class AllListPanel extends JPanel {
 	Collection<Music> allMusicSet;
 	
 	public AllListPanel(Color c, String title) {
-		setLayout(null);
 		setBackground(new Color(0,0,0,0));
 		setBounds(3, 0, 400, 600);
-
-		allMusicSet = MusicManager.managerMusicSet;
+		//layout이 null이 panel은 scrollpane이 먹히지 않는다.
+//		setLayout(new GridLayout(1, 1));
+		setLayout(null);
 		
-		JScrollPane jsp = new JScrollPane(new MusicTable(allMusicSet), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		jsp.setLocation(0, 0);
-		jsp.setSize(350, 600);
-//		jsp.setPreferredSize((new Dimension(350, 200)));
-		jsp.setBackground(new Color(0,0,0,0));
+//		JScrollPane jsp = new JScrollPane(new MusicTable(allMusicSet), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		jsp.setLocation(0, 0);
+//		jsp.setPreferredSize((new Dimension(350, 600)));
+//		jsp.setBackground(new Color(0,0,0,0));
 		
-		add(jsp);
+		add(new MusicTable(MusicManager.managerMusicSet));
 	}
 }
