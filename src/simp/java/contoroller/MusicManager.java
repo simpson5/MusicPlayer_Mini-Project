@@ -43,6 +43,7 @@ public class MusicManager {
 		mpb.interrupt();
 		mpb = new Thread(new MusicPlayBar());
 		mpb.start();
+		MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
 	}
 	
 	//다음 곡으로 가기
@@ -54,6 +55,7 @@ public class MusicManager {
 		mpb.interrupt();
 		mpb = new Thread(new MusicPlayBar());
 		mpb.start();
+		MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
 	}
 	
 	//이전 곡으로 가기
@@ -69,6 +71,7 @@ public class MusicManager {
 		mpb.interrupt();
 		mpb = new Thread(new MusicPlayBar());
 		mpb.start();
+		MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
 	}
 	
 	//음악정지
@@ -78,6 +81,7 @@ public class MusicManager {
 			mpb.interrupt();
 		} catch (NullPointerException e) {
 		}
+		MyUtil.infoChanger("음악 종료");
 	}
 	
 	//음악들 폴더에서 불러와 전체목록에 저장하는 메서드
@@ -106,6 +110,7 @@ public class MusicManager {
 	public void removeMusicList(Music m) {
 		//음악이 재생목록에 있다면 제거
 		if(managerMusicList.contains(m)) {
+			managerMusicList.remove(m);
 			MyUtil.infoChanger("곡이 제거 되었습니다.");
 		}
 		else {
@@ -145,7 +150,7 @@ public class MusicManager {
 //				}
 //			}
 	}	
-		if(list.size() == 0) System.out.println("검색 결과가 없습니다.");
+		if(list.size() == 0) MyUtil.infoChanger("찾으시는 곡이 없습니다.");
 		return list;
 	}
 //	7. 가수명으로 검색 메소드 : 복수개의 결과가 나올수 있음.
@@ -168,8 +173,7 @@ public class MusicManager {
 //				num = i+1;
 //			}
 //		}
-		if(list.size() == 0) System.out.println("검색 결과가 없습니다.");
-		System.out.println(list);
+		if(list.size() == 0) MyUtil.infoChanger("찾으시는 곡이 없습니다.");
 		return list;
 	}
 	
@@ -178,6 +182,7 @@ public class MusicManager {
 		
 		Collections.shuffle(managerMusicList);
 		
+		MyUtil.infoChanger("셔플 완료");
 		return managerMusicList;
 	}
 	
@@ -187,6 +192,7 @@ public class MusicManager {
 		Comparator<Music> comp = new MusicNameAscending();
 		Collections.sort(managerMusicList, comp);
 		
+		MyUtil.infoChanger("정렬 완료");
 		return managerMusicList;
 	}
 }
