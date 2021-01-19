@@ -13,11 +13,13 @@ public class PlayListPanel extends JPanel {
 	private Collection<Music> playMusicList;
 
 	public PlayListPanel(Color c, String title) {
-		setLayout(null);
+		//기본 패널 설정 >> 투명도, 위치/크기, 레이아웃
 		setBackground(new Color(0,0,0,0));
 		setBounds(3, 0, 400, 600);
-		playMusicList = MusicManager.managerMusicList;
-		add(new MusicTable(playMusicList));
+		setLayout(null);
+		
+		//재생목록을 가져옴
+		add(new MusicTable(MusicManager.managerMusicList));
 	}
 
 	//새로 고침을 위한 메서드, 지금은 필요 없음

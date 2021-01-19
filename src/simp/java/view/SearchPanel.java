@@ -22,23 +22,28 @@ public class SearchPanel extends JPanel {
 	JTextField inputMusic;
 
 	public SearchPanel(JFrame parent, Color c, String title) {
+		//기본 패널 설정 >> 투명도, 위치/크기, 레이아웃
 		setBackground(new Color(0,0,0,0));
 		setBounds(50, 250, 400, 50);
 		setLayout(null);
 		
+		//검색창
 		inputMusic = new JTextField(10);
-		JButton searchMusicBtn = new JButton();
-		JButton searchSingerBtn = new JButton();
 		inputMusic.setBounds(0, 5, 100, 40);
 		inputMusic.setBackground(Color.black);
 		inputMusic.setForeground(new Color(67,199,1));
 		inputMusic.setBorder(new LineBorder(Color.black, 8, true));
+		
+		//제목 , 가수 검색 버튼
+		JButton searchMusicBtn = new JButton();
+		JButton searchSingerBtn = new JButton();
 		searchSingerBtn.setBounds(210, 0, 90, 50);
-		searchSingerBtn.setIcon(new ImageIcon("Image/sing.png"));
 		searchMusicBtn.setBounds(110, 0, 90, 50);
+		searchSingerBtn.setIcon(new ImageIcon("Image/sing.png"));
 		searchMusicBtn.setIcon(new ImageIcon("Image/song.png"));
 		searchSingerBtn.addActionListener(new SearchSingerbtnListener());
 		searchMusicBtn.addActionListener(new SearchMusicListener());
+		
 		add(inputMusic);
 		add(searchSingerBtn);
 		add(searchMusicBtn);

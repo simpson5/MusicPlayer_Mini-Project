@@ -7,11 +7,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JLabel;
+
 import simp.java.io.SetMusic;
 import simp.java.music.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.java.thread.MusicPlayBar;
+import simp.java.view.Info;
+import simp.java.view.MainFrame;
+import simp.java.view.PlayPanel;
+import simp.myutil.MyUtil;
 
+//플레이어와 스레드를 컨트롤 하기 위한 클래스
 public class MusicManager {
 	//음악 셋 전체 목록
 	public static HashSet<Music> managerMusicSet = new HashSet<>();
@@ -19,7 +26,7 @@ public class MusicManager {
 	public static ArrayList<Music> managerMusicList = new ArrayList<>();
 	//음악 재생 쓰레드
 	public MusicPlay mp;
-	//음악 재생 정도 쓰레드
+	//음악 재생바 쓰레드
 	public Thread mpb = new Thread();
 	
 	//메니저 객체 생성시 음악 저장
@@ -73,7 +80,7 @@ public class MusicManager {
 		}
 	}
 	
-	//음악들 폴더에서 불러오기 나중에 자세히 보자
+	//음악들 폴더에서 불러와 전체목록에 저장하는 메서드
 	public void saveMusicSet() {
 		new SetMusic("Music", managerMusicSet);
 	}
@@ -88,9 +95,10 @@ public class MusicManager {
 		//음악이 재생 목록에 없다면 추가
 		if(!managerMusicList.contains(m)) {
 			managerMusicList.add(m);
+			MyUtil.infoChanger("곡이 추가되었습니다.");
 		}
 		else {
-			System.out.println("이미 곡이 있습니다");
+			MyUtil.infoChanger("이미 곡이 있습니다");
 		}
 	}
 	
@@ -98,16 +106,15 @@ public class MusicManager {
 	public void removeMusicList(Music m) {
 		//음악이 재생목록에 있다면 제거
 		if(managerMusicList.contains(m)) {
-			managerMusicList.remove(m);
+			MyUtil.infoChanger("곡이 제거 되었습니다.");
 		}
 		else {
-			System.out.println("곡이 없습니다.");
+			MyUtil.infoChanger("곡이 없습니다.");
 		}
 	}
 	
 	//재생 목록 불러오기
 	public List<Music> getMusicList(){
-//		System.out.println(musicList);
 		return this.managerMusicList;
 	}
 	

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import simp.java.thread.MusicPlay;
 
 public class PlayPanel extends JPanel {
-	JPanel musicinfo;
+	public static JPanel musicInfo;
 	JLabel musicName;
 	JLabel musicSinger;
 	JLabel musicGenre;
@@ -43,60 +43,18 @@ public class PlayPanel extends JPanel {
 		musicPrevious.addActionListener(new musicPreviousBtnListener());
 		musicPrevious.setBounds(235, 130, 70, 50);
 		musicPrevious.setIcon(new ImageIcon("Image/pre.png"));
-		//재생바
-//		JButton musicPlayBar = new JButton();
+		
 		//현재 음악정보
 		JButton musicInfoBtn = new JButton();
-		musicInfoBtn.addActionListener(new musicInfoBtnListener());
+		musicInfoBtn.addActionListener(new MusicInfo.musicInfoBtnListener());
 		musicInfoBtn.setBounds(310, 130, 70, 50);
 		musicInfoBtn.setIcon(new ImageIcon("Image/info.png"));
-		
-		musicinfo = new JPanel();
-		musicinfo.setLayout(null);
-		musicinfo.setForeground(new Color(67,199,1));
-		musicinfo.setBounds(0, 0, 300, 150);
-		musicinfo.setBackground(new Color(0, 0, 0, 0));
-		
-		musicName = new JLabel();
-		musicSinger = new JLabel();
-		musicGenre = new JLabel();
-		musicName.setBounds(15, 30, 300, 20);
-		musicSinger.setBounds(15, 50, 300, 20);
-		musicGenre.setBounds(15, 70, 300, 20);
-		musicName.setForeground(new Color(67,199,1));
-		musicSinger.setForeground(new Color(67,199,1));
-		musicGenre.setForeground(new Color(67,199,1));
-		musicName.setFont(MainFrame.font);
-		musicSinger.setFont(MainFrame.font);
-		musicGenre.setFont(MainFrame.font);
-		add(musicName);
-		add(musicSinger);
-		add(musicGenre);
-		
+
 		add(musicStart);
 		add(musicStop);
 		add(musicNext);
 		add(musicPrevious);
 		add(musicInfoBtn);
-	}
-	
-	public class musicInfoBtnListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int sec = (int)MusicPlay.playMusicList.get(MusicPlay.nowMusic).getPlayTime();
-			int min = sec/60;
-			sec -= min * 60;
-			musicName.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getMusicName());
-			musicSinger.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getMusicSinger());			
-			musicGenre.setText(MusicPlay.playMusicList.get(MusicPlay.nowMusic).getGenre() + 
-					"  /  "+ min + " : " +sec);
-			musicinfo.removeAll();
-			musicinfo.revalidate();
-			musicinfo.repaint();
-			MainFrame.playPanel.add(musicinfo);
-			MainFrame.jlp.repaint();
-		}
-		
 	}
 	
 	public class musicStartBtnListner implements ActionListener {

@@ -1,14 +1,9 @@
 package simp.java.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.util.Collection;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import simp.java.contoroller.MusicManager;
 import simp.java.music.vo.Music;
@@ -18,6 +13,7 @@ public class AllListPanel extends JPanel {
 	Collection<Music> allMusicSet;
 	
 	public AllListPanel(Color c, String title) {
+		//기본 패널 설정 >> 투명도, 위치/크기, 레이아웃
 		setBackground(new Color(0,0,0,0));
 		setBounds(3, 0, 400, 600);
 		//layout이 null이 panel은 scrollpane이 먹히지 않는다.
@@ -29,6 +25,7 @@ public class AllListPanel extends JPanel {
 //		jsp.setPreferredSize((new Dimension(350, 600)));
 //		jsp.setBackground(new Color(0,0,0,0));
 		
+		//전체 목록을 가져옴
 		add(new MusicTable(MusicManager.managerMusicSet));
 	}
 }

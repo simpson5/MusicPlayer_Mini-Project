@@ -12,35 +12,45 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
-import simp.myutil.Myutil;
+import simp.myutil.MyUtil;
 
-
-
+//메인 프레임
 public class MainFrame extends JFrame{
+	//다시 그리기를 위한 변수
+	public static JFrame main;
+	//관리자 불러오면서 음악 전체 목록 저장
 	public static MusicManager mm = new MusicManager();
+	//음악 목록 패널 >> 전체, 재생 두가지를 가지고 있다.
+	private JPanel listPanel;
+	//전체목록 패널
 	public static JPanel allListPanel;
+	//재생목록 패널
 	public static JPanel playListPanel;
+	//재생 패널
+	public static JPanel musicInfo;
 	public static JPanel playPanel;
+	public static JPanel playBarPanel;
+	//검색패널
 	public static JPanel searchPanel;
 	public static JPanel resultPanel;
-	public static JPanel playBarPanel;
-	public static JFrame main;
+	//배경화면과 각 패널 레이어드 구분을 위해
 	public static JLayeredPane jlp;
-	public static JPanel listPanel;
+	//기본 폰트
 	public static Font font = new Font("Sans Serif", Font.PLAIN, 15);
 
-	public MainFrame(int w, int h, String title) {
+	public MainFrame(String title) {
+		//제목, 크기, 크기변환, 위치 지정
 		setTitle(title);
 		setSize(800, 800);
-//		setResizable(false);
+		setResizable(false);
 		setLocationRelativeTo(null);
 
-		//		초기화
-		getContentPane().setLayout(null);
+		//레이아웃, 종료값 지정
+		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main = this;
 
-		//레이어드를 위해
+		//레이어드 pane
 		jlp = new JLayeredPane();
 		jlp.setSize(800, 800);
 		jlp.setLayout(null);
@@ -51,7 +61,10 @@ public class MainFrame extends JFrame{
 		background.setBounds(0, 0, 800, 800);
 
 		//음악 재생 panel
+		musicInfo = new MusicInfo();
 		playPanel = new PlayPanel(this, null, "음악 재생");
+		playBarPanel = new PlayBarPanel();
+		
 		//음악 목록 panel
 		listPanel = new JPanel();
 		listPanel.setBackground(new Color(0,0,0,0));
@@ -74,6 +87,7 @@ public class MainFrame extends JFrame{
 		btnPanel.setBackground(new Color(0, 0, 0, 0));
 		btnPanel.setLayout(null);
 
+		//전체, 재생, 셔플 , 정렬 버튼
 		JButton AllListButton = new JButton();
 		AllListButton.setBounds(0, 0, 80, 50);
 		AllListButton.setIcon(new ImageIcon("Image/alllist.jpg"));
@@ -97,11 +111,9 @@ public class MainFrame extends JFrame{
 		shuffleListButton.addActionListener(new ChangePanel3());
 		sortListButton.addActionListener(new ChangePanel4());
 		
-		
-		playBarPanel = new PlayBarPanel();
-		
 		jlp.add(background, new Integer(0));
 		jlp.add(playPanel, new Integer(200));
+		jlp.add(musicInfo, new Integer(300));
 		jlp.add(btnPanel, new Integer(300));
 		jlp.add(listPanel, new Integer(300));
 		jlp.add(searchPanel, new Integer(300));
@@ -114,14 +126,14 @@ public class MainFrame extends JFrame{
 	public class ChangePanel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Myutil.changePanel(listPanel, allListPanel);
+			MyUtil.changePanel(listPanel, allListPanel);
 		}
 	}
 
 	public class ChangePanel2 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Myutil.changePanel(listPanel, playListPanel);
+			MyUtil.changePanel(listPanel, playListPanel);
 		}
 	}
 	
@@ -129,13 +141,8 @@ public class MainFrame extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mm.shuffleMusicList();
-			MainFrame.playListPanel.removeAll();
-			MainFrame.playListPanel.add(new MusicTable(MusicManager.managerMusicList));
-			MainFrame.playListPanel.revalidate();
-			MainFrame.playListPanel.repaint();			
-			MainFrame.jlp.revalidate();
-			MainFrame.jlp.repaint();
-			Myutil.changePanel(listPanel, playListPanel);
+			MyUtil.changePlayPanel(MusicManager.managerMusicList);
+			MyUtil.changePanel(listPanel, playListPanel);
 		}
 	}
 	
@@ -143,13 +150,8 @@ public class MainFrame extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mm.sortMusicList();
-			MainFrame.playListPanel.removeAll();
-			MainFrame.playListPanel.add(new MusicTable(MusicManager.managerMusicList));
-			MainFrame.playListPanel.revalidate();
-			MainFrame.playListPanel.repaint();			
-			MainFrame.jlp.revalidate();
-			MainFrame.jlp.repaint();
-			Myutil.changePanel(listPanel, playListPanel);
+			MyUtil.changePlayPanel(MusicManager.managerMusicList);
+			MyUtil.changePanel(listPanel, playListPanel);
 		}
 	}
 }

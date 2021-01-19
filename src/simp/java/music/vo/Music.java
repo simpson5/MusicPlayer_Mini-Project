@@ -1,13 +1,15 @@
 package simp.java.music.vo;
 
+//음악 객체 클래스
 public class Music {
+	//음악 정보 변수
 	private String musicName;
 	private String musicSinger;
 	private String genre;
 	private long playTime;
-	//private int playCnt;
 	private String releaseYear;
 	
+	//모든 변수를 담은 생성자
 	public Music(String musicName, String musicSinger, String genre, long playTime, String releaseYear) {
 		super();
 		this.musicName = musicName;
@@ -17,8 +19,8 @@ public class Music {
 		this.releaseYear = releaseYear;
 	}
 
+	//기본 생성자
 	public Music() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getMusicName() {

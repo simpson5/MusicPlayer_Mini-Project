@@ -16,20 +16,27 @@ import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
 import simp.java.music.vo.Music;
 
+//폴더에 존재하는 mp3 파일을 가져와서 객체로 저장해주는 클래스
 public class SetMusic {
+	//폴더이름과 객체로 저장할 곳
 	public SetMusic(String folderName, Set<Music> musicSet) {
+		//폴더 클래스
 		File fs = new File(folderName);
-		//isDirectory가 무엇일까?
+		//isDirectory >> 경로가 폴더인지 확인
 		if(fs.isDirectory()) {
+			//listFiles() >> 폴더 안에 파일 목록을 File 배열로 반환
 			File list[] = fs.listFiles();
+			//forEach 문으로 파일을 하나씩 검사
 			for(File f : list) {
 				try {
-					//mp3 파일 정보를 위해...
+					//파일을 mp3 mp3파일로 변환하여 객체로 만듦
 					MP3File mp3 = (MP3File) AudioFileIO.read(f);
 					//태그를 이용해 정보 불러오기
-					AbstractID3v2Tag tag2 = mp3.getID3v2Tag();
+//					AbstractID3v2Tag tag2 = mp3.getID3v2Tag();
+					//해당 mp3 파일에 태그를 불러옴
                     Tag tag = mp3.getTag();
                     
+                    //부러온 태그를 바탕으로 Music 객체를 생성한다.
                     String musicName = tag.getFirst(FieldKey.TITLE);
                     String musicSinger = tag.getFirst(FieldKey.ARTIST);
                     String genre = tag.getFirst(FieldKey.GENRE);
@@ -37,6 +44,8 @@ public class SetMusic {
                     String releaseYear = tag.getFirst(FieldKey.YEAR);
                     
                     musicSet.add(new Music(musicName, musicSinger, genre, playTime, releaseYear));
+				
+                //많은 예외들 ...
 				} catch (CannotReadException
 						| IOException 
 						| TagException 
