@@ -22,12 +22,11 @@ public class MainFrame extends JFrame{
 	public static MusicManager mm = new MusicManager();
 	//음악 목록 패널 >> 전체, 재생 두가지를 가지고 있다.
 	private JPanel listPanel;
-	//전체목록 패널
 	public static JPanel allListPanel;
-	//재생목록 패널
 	public static JPanel playListPanel;
+	//정보 패널
+	public static JPanel infoPanel;
 	//재생 패널
-	public static JPanel musicInfo;
 	public static JPanel playPanel;
 	public static JPanel playBarPanel;
 	//검색패널
@@ -61,8 +60,8 @@ public class MainFrame extends JFrame{
 		background.setBounds(0, 0, 800, 800);
 
 		//음악 재생 panel
-		musicInfo = new MusicInfo();
-		playPanel = new PlayPanel(this, null, "음악 재생");
+		infoPanel = new InfoPanel();
+		playPanel = new PlayPanel("음악 재생");
 		playBarPanel = new PlayBarPanel();
 		
 		//음악 목록 panel
@@ -71,16 +70,16 @@ public class MainFrame extends JFrame{
 		listPanel.setBounds(420, 90, 400, 600);
 		listPanel.setLayout(null);
 		//음악 전체 목록 panel
-		allListPanel = new AllListPanel(null, "전체 목록");
+		allListPanel = new AllListPanel("전체 목록");
 		//음악 재생 목록 panel
-		playListPanel = new PlayListPanel(null,"재생 목록");
+		playListPanel = new PlayListPanel("재생 목록");
 		
 		listPanel.add(allListPanel);
 		
 		//음악 검색 panel
-		searchPanel = new SearchPanel(this, null,"검색창");
+		searchPanel = new SearchPanel("검색창");
 		//음악 검색 결과 panel
-		resultPanel = new ResultPanel(this, null,"검색 목록");
+		resultPanel = new ResultPanel("검색 목록");
 		//음악 리스트 버튼 panel
 		JPanel btnPanel = new JPanel();
 		btnPanel.setBounds(415, 30, 350, 50);
@@ -111,9 +110,10 @@ public class MainFrame extends JFrame{
 		shuffleListButton.addActionListener(new ChangePanel3());
 		sortListButton.addActionListener(new ChangePanel4());
 		
+		//레이어드 구분하여 추가
 		jlp.add(background, new Integer(0));
 		jlp.add(playPanel, new Integer(200));
-		jlp.add(musicInfo, new Integer(300));
+		jlp.add(infoPanel, new Integer(300));
 		jlp.add(btnPanel, new Integer(300));
 		jlp.add(listPanel, new Integer(300));
 		jlp.add(searchPanel, new Integer(300));

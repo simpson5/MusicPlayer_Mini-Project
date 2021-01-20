@@ -1,6 +1,5 @@
 package simp.java.view;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -22,9 +21,8 @@ public class MusicTable extends JPanel{
 
 	public MusicTable(Collection<Music> c) {
 		this.c = c;
+		MyUtil.setPanel(this);
 		setBounds(0, 0, 400, 800);
-		setBackground(new Color(0,0,0,0));
-		setLayout(null);
 
 		Iterator<Music> iter = c.iterator();
 		//라벨 위치 조정을 위한 변수

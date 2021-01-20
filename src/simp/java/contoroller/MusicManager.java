@@ -168,6 +168,7 @@ public class MusicManager {
 		List<Music> list = new ArrayList<>();
 		for(int i=0; i<searchList.size(); i++) {
 			String oldSinger = searchList.get(i).getMusicSinger();
+			//contains는 현재 검색할 곡의 제목이 검색할 내용을 포함하였느지 여부를 판단해준다.
 			if(oldSinger.contains(singer)) {
 				list.add(searchList.get(i));
 			}

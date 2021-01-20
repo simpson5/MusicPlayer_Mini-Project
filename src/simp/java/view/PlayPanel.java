@@ -1,16 +1,14 @@
 package simp.java.view;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import simp.java.thread.MusicPlay;
+import simp.myutil.MyUtil;
 
 public class PlayPanel extends JPanel {
 	public static JPanel musicInfo;
@@ -18,9 +16,8 @@ public class PlayPanel extends JPanel {
 	JLabel musicSinger;
 	JLabel musicGenre;
 	
-	public PlayPanel(JFrame parent, Color c, String title) {
-		setBackground(new Color(0, 0, 0, 0));
-		setLayout(null);
+	public PlayPanel(String title) {
+		MyUtil.setPanel(this);
 		//크기, 위치 지정
 		setBounds(8, 20, 400, 400);
 		//재생버튼
@@ -46,7 +43,7 @@ public class PlayPanel extends JPanel {
 		
 		//현재 음악정보
 		JButton musicInfoBtn = new JButton();
-		musicInfoBtn.addActionListener(new MusicInfo.musicInfoBtnListener());
+		musicInfoBtn.addActionListener(new InfoPanel.musicInfoBtnListener());
 		musicInfoBtn.setBounds(310, 130, 70, 50);
 		musicInfoBtn.setIcon(new ImageIcon("Image/info.png"));
 

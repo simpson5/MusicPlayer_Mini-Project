@@ -8,9 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import simp.java.contoroller.MusicManager;
 import simp.java.modle.vo.Music;
-import simp.java.thread.MusicPlay;
 import simp.java.view.Info;
 import simp.java.view.MainFrame;
 import simp.java.view.MusicTable;
@@ -29,6 +27,7 @@ public class MyUtil {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	//리스트 패널 변환 메서드
 	public static void changePanel(JPanel parent, JPanel next) {
 		parent.removeAll();
 		parent.add(next , new Integer(300));
@@ -40,24 +39,27 @@ public class MyUtil {
 		MainFrame.main.repaint();
 	}
 	
+	//문자열을 받을때 정보패널 변환 메서드
 	public static void infoChanger(String s) {
-		MainFrame.musicInfo.removeAll();
-		MainFrame.musicInfo.add(new Info(s));
-		MainFrame.musicInfo.revalidate();
-		MainFrame.musicInfo.repaint();
+		MainFrame.infoPanel.removeAll();
+		MainFrame.infoPanel.add(new Info(s));
+		MainFrame.infoPanel.revalidate();
+		MainFrame.infoPanel.repaint();
 		MainFrame.jlp.revalidate();
 		MainFrame.jlp.repaint();
 	}
 	
+	//음악 객체를 받을때 정보패널 변환 메서드
 	public static void infoChanger(Music m) {
-		MainFrame.musicInfo.removeAll();
-		MainFrame.musicInfo.add(new Info(m));
-		MainFrame.musicInfo.revalidate();
-		MainFrame.musicInfo.repaint();
+		MainFrame.infoPanel.removeAll();
+		MainFrame.infoPanel.add(new Info(m));
+		MainFrame.infoPanel.revalidate();
+		MainFrame.infoPanel.repaint();
 		MainFrame.jlp.revalidate();
 		MainFrame.jlp.repaint();
 	}
 	
+	//재생 목록 변환 메서드
 	public static void changePlayPanel(Collection<Music> m) {
 		MainFrame.playListPanel.removeAll();
 		MainFrame.playListPanel.add(new MusicTable(m));
@@ -94,5 +96,10 @@ public class MyUtil {
 	public static void winAmp(JLabel label) {
 		label.setForeground(new Color(67,199,1));
 		label.setFont(MainFrame.font);
+	}
+
+	public static void setPanel(JPanel jp) {
+		jp.setBackground(new Color(0,0,0,0));
+		jp.setLayout(null);	
 	}
 }

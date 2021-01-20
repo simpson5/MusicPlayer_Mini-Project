@@ -22,11 +22,10 @@ import simp.myutil.MyUtil;
 public class SearchPanel extends JPanel {
 	JTextField inputMusic;
 
-	public SearchPanel(JFrame parent, Color c, String title) {
+	public SearchPanel(String title) {
 		//기본 패널 설정 >> 투명도, 위치/크기, 레이아웃
-		setBackground(new Color(0,0,0,0));
+		MyUtil.setPanel(this);
 		setBounds(50, 250, 400, 50);
-		setLayout(null);
 
 		//검색창
 		inputMusic = new JTextField(10);
