@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import simp.java.contoroller.MusicManager;
 import simp.java.thread.MusicPlay;
 import simp.myutil.MyUtil;
 
@@ -17,7 +18,7 @@ public class InfoPanel extends JPanel {
 	public static class musicInfoBtnListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
+			MyUtil.infoChanger(MusicManager.managerMusicList.get(MusicManager.nowMusic));
 		}
 		
 	}

@@ -24,6 +24,8 @@ public class MusicManager {
 	public static HashSet<Music> managerMusicSet = new HashSet<>();
 	//음악 리스트 재생 목록
 	public static ArrayList<Music> managerMusicList = new ArrayList<>();
+	//현재 음악 재생 숫자
+	public static int nowMusic;
 	//음악 재생 쓰레드
 	public MusicPlay mp;
 	//음악 재생바 쓰레드
@@ -37,41 +39,48 @@ public class MusicManager {
 	//음악재생
 	public void playMusic() {
 		stopMusic();
-		mp.nowMusic = 0;
+		nowMusic = 0;
 		mp = new MusicPlay();
 		mp.start();
 		mpb.interrupt();
 		mpb = new Thread(new MusicPlayBar());
 		mpb.start();
-		MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
+		//곡이 없다면 정보가 패널에 안뜸
+		if(managerMusicList.size() != 0) {
+			MyUtil.infoChanger(managerMusicList.get(nowMusic));
+		}
 	}
 	
 	//다음 곡으로 가기
 	public void nextMusic() {
 		stopMusic();
 		mp = new MusicPlay();
-		mp.nowMusic++;
+		nowMusic++;
 		mp.start();
 		mpb.interrupt();
 		mpb = new Thread(new MusicPlayBar());
 		mpb.start();
-		MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
+		if(managerMusicList.size() != 0) {
+			MyUtil.infoChanger(managerMusicList.get(nowMusic));
+		}
 	}
 	
 	//이전 곡으로 가기
 	public void previousMusic() {
 		stopMusic();
-		if(mp.nowMusic == 0) {
-			System.out.println("이전곡이 없습니다");
+		if(nowMusic == 0) {
+			MyUtil.infoChanger("이전 곡이 없습니다");
 			return;
 		}
 		mp = new MusicPlay();
-		mp.nowMusic--;
+		nowMusic--;
 		mp.start();
 		mpb.interrupt();
 		mpb = new Thread(new MusicPlayBar());
 		mpb.start();
-		MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
+		if(managerMusicList.size() != 0) {
+			MyUtil.infoChanger(managerMusicList.get(nowMusic));
+		}
 	}
 	
 	//음악정지
@@ -139,22 +148,6 @@ public class MusicManager {
 			if(oldTitle.contains(title)) {
 				list.add(searchList.get(i));
 			}
-			//위의 코드로 수정
-//			outer :
-//			for(int j=0; j<=(oldTitle.length()-title.length()); j++) {
-//				if(title.charAt(0) == oldTitle.charAt(j)) {
-//					int count=0;
-//					for(int x=0; x<title.length(); x++) {
-//						if(title.charAt(x) == oldTitle.charAt(j+x)) {
-//							count++;
-//							if(count == title.length()) {
-//								list.add(musicList.get(i));
-//								break outer;
-//							}
-//						}
-//					}	
-//				}
-//			}
 	}	
 		if(list.size() == 0) MyUtil.infoChanger("찾으시는 곡이 없습니다.");
 		return list;
@@ -173,14 +166,6 @@ public class MusicManager {
 				list.add(searchList.get(i));
 			}
 		}
-		//위의 코드로 수정
-//		int num=0;
-//		for(int i=num; i<searchList.size(); i++) {
-//			if(searchList.get(i).getMusicSinger().equals(singer)) {
-//				list.add(searchList.get(i));
-//				num = i+1;
-//			}
-//		}
 		if(list.size() == 0) MyUtil.infoChanger("찾으시는 곡이 없습니다.");
 		return list;
 	}

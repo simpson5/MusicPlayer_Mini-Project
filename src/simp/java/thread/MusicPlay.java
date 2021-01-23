@@ -15,16 +15,14 @@ import simp.myutil.MyUtil;
 //음악 재생을 위한 쓰레드, 쓰레드로 만들지 않을 경우 음악이 재생중일때 모든 동작이 멈춘다.
 public class MusicPlay extends Thread {
 	
-	//현재 재생중인 곡을 알기 위한 변수 이를 바탕으로 다음곡과 이전곡을 불러온다.
-	public static int nowMusic;
 	//재생목록에 있는 음악을 플레이어에 담는 변수
-	public static ArrayList<Music> playMusicList = MusicManager.managerMusicList;
+//	public static ArrayList<Music> playMusicList = MusicManager.managerMusicList;
 	//재생목록에 있는 음악을 담기 위한 플레이어 리스트
 	public ArrayList<MusicPlayer> mpList = new ArrayList<>();
 	
 	public MusicPlay() {
 		//각 재생 목록 음악을 담기 위한 플레이어를 만든다.
-		for(Music music : playMusicList) {
+		for(Music music : MusicManager.managerMusicList) {
 			System.out.println(music);
 			MusicPlayer mp = new MusicPlayer(music);
 			mpList.add(mp);
@@ -37,7 +35,7 @@ public class MusicPlay extends Thread {
 		try {
 			//stop 메소드를 호출하지 않으면 스레드가 멈춰도 음악은 재생중이다...why?
 			//JLayer 라이브러리 문제인지...
-			mpList.get(nowMusic).stop();
+			mpList.get(MusicManager.nowMusic).stop();
 //			System.out.println("정지" + nowMusic);
 			this.interrupt();
 		} catch (IndexOutOfBoundsException e) {
@@ -52,14 +50,14 @@ public class MusicPlay extends Thread {
 	public void run() {
 		//저장된 곡이 없다면 그대로 종료
 		try {
-			if(playMusicList.size() == 0) {
+			if(MusicManager.managerMusicList.size() == 0) {
 				MyUtil.infoChanger("재생할 곡이 없습니다.");
 				return;
 			}
 			//현재 재생중인 곡
 //			System.out.println(nowMusic);
 			//nowMusic 부터 음악이 플레이어 수 까지 반복
-			for(int i = nowMusic; i < mpList.size(); i++) {
+			for(int i = MusicManager.nowMusic; i < mpList.size(); i++) {
 				//오류 검사 용도
 				//System.out.println("시작" + nowMusic + " : " + i);
 					try {
@@ -67,19 +65,19 @@ public class MusicPlay extends Thread {
 						mpList.get(i).play();
 					} catch (ArrayIndexOutOfBoundsException e) {
 						//오류 검사용
-						System.out.println("어레이" + i + " : " + nowMusic);
+						System.out.println("어레이" + i + " : " + MusicManager.nowMusic);
 					}
 					try {
 						Thread.sleep(1);
 					} catch (InterruptedException e) {
 						//종료할 경우 현재 음악의 순서를 종료한 음악의 순서로 바꿔줌
-						nowMusic = i;
+						MusicManager.nowMusic = i;
 						return;
 					}
 			}
 		} catch (IndexOutOfBoundsException e) {
 			//오류 검사용
-			System.out.println("인덱스 " + nowMusic);
+			System.out.println("인덱스 " + MusicManager.nowMusic);
 		}
 	}
 

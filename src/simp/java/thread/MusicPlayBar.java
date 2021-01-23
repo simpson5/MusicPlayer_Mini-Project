@@ -13,7 +13,7 @@ public class MusicPlayBar implements Runnable {
 
 	//재생중인 음악을 변수에 대입
 	public MusicPlayBar() {
-		this.num = MusicPlay.nowMusic;
+		this.num = MusicManager.nowMusic;
 	}
 
 	//재생바를 위한 메소드
@@ -22,14 +22,14 @@ public class MusicPlayBar implements Runnable {
 	public void run() {
 		try {
 			for(int i = num; i <= MusicManager.managerMusicList.size(); i++) {
-				for(int j = 1; j <  MusicPlay.playMusicList.get(i).getPlayTime(); j++) {
+				for(int j = 1; j <  MusicManager.managerMusicList.get(i).getPlayTime(); j++) {
 //					System.out.println(j+ " / " +MusicPlay.playMusicList.get(i).getPlayTime());
-					MyUtil.playBar(MusicPlay.playMusicList.get(i), j);
+					MyUtil.playBar(MusicManager.managerMusicList.get(i), j);
 					//1초마다
 					Thread.sleep(1000);
 				}
-				MusicPlay.nowMusic ++;
-				MyUtil.infoChanger(MusicPlay.playMusicList.get(MusicPlay.nowMusic));
+				MusicManager.nowMusic ++;
+				MyUtil.infoChanger(MusicManager.managerMusicList.get(MusicManager.nowMusic));
 			}
 		} catch (IndexOutOfBoundsException e) {
 			
