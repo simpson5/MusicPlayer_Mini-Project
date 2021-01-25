@@ -38,48 +38,26 @@ public class MusicManager {
 	
 	//음악재생
 	public void playMusic() {
-		stopMusic();
-		nowMusic = 0;
-		mp = new MusicPlay();
-		mp.start();
-		mpb.interrupt();
-		mpb = new Thread(new MusicPlayBar());
-		mpb.start();
+		reset(0);
 		//곡이 없다면 정보가 패널에 안뜸
 		if(managerMusicList.size() != 0) {
-			MyUtil.infoChanger(managerMusicList.get(nowMusic));
+			MyUtil.changeInfo(managerMusicList.get(nowMusic));
 		}
 	}
 	
 	//다음 곡으로 가기
 	public void nextMusic() {
-		stopMusic();
-		mp = new MusicPlay();
-		nowMusic++;
-		mp.start();
-		mpb.interrupt();
-		mpb = new Thread(new MusicPlayBar());
-		mpb.start();
+		reset(1);
 		if(managerMusicList.size() != 0) {
-			MyUtil.infoChanger(managerMusicList.get(nowMusic));
+			MyUtil.changeInfo(managerMusicList.get(nowMusic));
 		}
 	}
 	
 	//이전 곡으로 가기
 	public void previousMusic() {
-		stopMusic();
-		if(nowMusic == 0) {
-			MyUtil.infoChanger("이전 곡이 없습니다");
-			return;
-		}
-		mp = new MusicPlay();
-		nowMusic--;
-		mp.start();
-		mpb.interrupt();
-		mpb = new Thread(new MusicPlayBar());
-		mpb.start();
-		if(managerMusicList.size() != 0) {
-			MyUtil.infoChanger(managerMusicList.get(nowMusic));
+		reset(-1);
+		if(managerMusicList.size() != 0 && nowMusic != 0) {
+			MyUtil.changeInfo(managerMusicList.get(nowMusic));
 		}
 	}
 	
@@ -90,7 +68,7 @@ public class MusicManager {
 			mpb.interrupt();
 		} catch (NullPointerException e) {
 		}
-		MyUtil.infoChanger("음악 종료");
+		MyUtil.changeInfo("음악 종료");
 	}
 	
 	//음악들 폴더에서 불러와 전체목록에 저장하는 메서드
@@ -108,10 +86,10 @@ public class MusicManager {
 		//음악이 재생 목록에 없다면 추가
 		if(!managerMusicList.contains(m)) {
 			managerMusicList.add(m);
-			MyUtil.infoChanger("곡이 추가되었습니다.");
+			MyUtil.changeInfo("곡이 추가되었습니다.");
 		}
 		else {
-			MyUtil.infoChanger("이미 곡이 있습니다");
+			MyUtil.changeInfo("이미 곡이 있습니다");
 		}
 	}
 	
@@ -120,21 +98,14 @@ public class MusicManager {
 		//음악이 재생목록에 있다면 제거
 		if(managerMusicList.contains(m)) {
 			managerMusicList.remove(m);
-			MyUtil.infoChanger("곡이 제거 되었습니다.");
+			MyUtil.changeInfo("곡이 제거 되었습니다.");
 		}
 		else {
-			MyUtil.infoChanger("곡이 없습니다.");
+			MyUtil.changeInfo("곡이 없습니다.");
 		}
 	}
 	
-	//재생 목록 불러오기
-	public List<Music> getMusicList(){
-		return this.managerMusicList;
-	}
-	
-	//6. 특정곡이 있는지 검사하는 메소드 : 복수개의 결과가 나올수 있음. 
-//	(곡명일부로 검색해서 해당곡이 있다면, 곡정보(제목/가수)를 출력하고, 없다면, "검색결과가 없습니다"출력)
-//	+ searchMusicByTitle(String title) : List<Music>
+	//특정곡이 있는지 검사하는 메소드 : 복수개의 결과가 나올수 있음. 
 	public List<Music> searchMusicByTitle(String title) {
 		//셋 형식을 리스트 형식으로 바꿔줌
 		List<Music> searchList = new ArrayList<>(managerMusicSet);
@@ -149,11 +120,10 @@ public class MusicManager {
 				list.add(searchList.get(i));
 			}
 	}	
-		if(list.size() == 0) MyUtil.infoChanger("찾으시는 곡이 없습니다.");
+		if(list.size() == 0) MyUtil.changeInfo("찾으시는 곡이 없습니다.");
 		return list;
 	}
-//	7. 가수명으로 검색 메소드 : 복수개의 결과가 나올수 있음.
-//	+ searchMusicBySinger(String singer) : List<Music>
+	//가수명으로 검색 메소드 : 복수개의 결과가 나올수 있음.
 	public List<Music> searchMusicBySinger(String singer) {
 		//검색용 목록
 		List<Music> searchList = new ArrayList<>(managerMusicSet);
@@ -166,7 +136,7 @@ public class MusicManager {
 				list.add(searchList.get(i));
 			}
 		}
-		if(list.size() == 0) MyUtil.infoChanger("찾으시는 곡이 없습니다.");
+		if(list.size() == 0) MyUtil.changeInfo("찾으시는 곡이 없습니다.");
 		return list;
 	}
 	
@@ -176,7 +146,7 @@ public class MusicManager {
 		//기본 메서드를 이용하여 셔플함
 		Collections.shuffle(managerMusicList);
 		
-		MyUtil.infoChanger("셔플 완료");
+		MyUtil.changeInfo("셔플 완료");
 		return managerMusicList;
 	}
 	
@@ -187,7 +157,29 @@ public class MusicManager {
 		Comparator<Music> comp = new MusicNameAscending();
 		Collections.sort(managerMusicList, comp);
 		
-		MyUtil.infoChanger("정렬 완료");
+		MyUtil.changeInfo("정렬 완료");
 		return managerMusicList;
+	}
+	
+	//재생, 다음, 이전으로 갈때 nowMusic을 바꾸면서 현재 실행중인 재생 스레드를 종료 시키고
+	//새로운 스레드를 만들어 재생시킨다.
+	public void reset(int i) {
+		stopMusic();
+		if(i == -1 && nowMusic == 0) {
+			MyUtil.changeInfo("이전 곡이 없습니다");
+			return;
+		}
+		mp = new MusicPlay();
+		if(i == 0) {
+			nowMusic = 0;
+		}
+		else {
+			nowMusic += i;
+		}
+		System.out.println(nowMusic + ":"  + i);
+		mp.start();
+		mpb.interrupt();
+		mpb = new Thread(new MusicPlayBar());
+		mpb.start();
 	}
 }

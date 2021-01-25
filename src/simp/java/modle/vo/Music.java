@@ -6,11 +6,11 @@ public class Music {
 	private String musicName;
 	private String musicSinger;
 	private String genre;
-	private long playTime;
+	private int playTime;
 	private String releaseYear;
 	
 	//모든 변수를 담은 생성자
-	public Music(String musicName, String musicSinger, String genre, long playTime, String releaseYear) {
+	public Music(String musicName, String musicSinger, String genre, int playTime, String releaseYear) {
 		super();
 		this.musicName = musicName;
 		this.musicSinger = musicSinger;
@@ -47,11 +47,11 @@ public class Music {
 		this.genre = genre;
 	}
 
-	public long getPlayTime() {
+	public int getPlayTime() {
 		return playTime;
 	}
 
-	public void setPlayTime(long playTime) {
+	public void setPlayTime(int playTime) {
 		this.playTime = playTime;
 	}
 

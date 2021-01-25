@@ -49,7 +49,8 @@ public class MusicPlayer {
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		} catch ( ArrayIndexOutOfBoundsException e) {
-			System.out.println(MusicManager.nowMusic);
+//			System.out.println(MusicManager.nowMusic);
+			System.out.println("이녀석인가");
 		}
 	}
 	
@@ -61,10 +62,5 @@ public class MusicPlayer {
 			player.close();
 			play = false;
 		}
-	}
-	
-	//재생중인 음악의 길이를 알려주는 메소드
-	public int getTime() {
-		return player.getPosition();
 	}
 }

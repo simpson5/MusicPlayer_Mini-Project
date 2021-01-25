@@ -29,12 +29,12 @@ public class MusicPlayBar implements Runnable {
 					Thread.sleep(1000);
 				}
 				MusicManager.nowMusic ++;
-				MyUtil.infoChanger(MusicManager.managerMusicList.get(MusicManager.nowMusic));
+				MyUtil.changeInfo(MusicManager.managerMusicList.get(MusicManager.nowMusic));
 			}
 		} catch (IndexOutOfBoundsException e) {
 			
 		} catch (InterruptedException e) {
-			System.out.println("정지와 1초마다 실행을 위해");
+//			System.out.println("정지와 1초마다 실행을 위해");
 		}
 	}
 }

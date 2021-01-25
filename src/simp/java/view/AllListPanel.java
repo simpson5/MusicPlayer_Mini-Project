@@ -17,8 +17,6 @@ public class AllListPanel extends JPanel {
 		MyUtil.setPanel(this);
 		setBounds(3, 0, 400, 600);
 		
-		//layout이 null이 panel은 scrollpane이 먹히지 않는다.
-		
 		//전체 목록을 가져옴
 		add(new MusicTable(MusicManager.managerMusicSet));
 	}

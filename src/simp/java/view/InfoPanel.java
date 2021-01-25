@@ -14,12 +14,4 @@ public class InfoPanel extends JPanel {
 		MyUtil.setPanel(this);
 		setBounds(25, 50, 300, 150);
 	}
-	
-	public static class musicInfoBtnListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			MyUtil.infoChanger(MusicManager.managerMusicList.get(MusicManager.nowMusic));
-		}
-		
-	}
 }

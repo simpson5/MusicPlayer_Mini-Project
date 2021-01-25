@@ -31,7 +31,6 @@ public class Info extends JPanel {
 		musicSinger = new JLabel(m.getMusicSinger());
 		musicGenre = new JLabel(m.getGenre() +  "  /  "+ m.getReleaseYear() 
 					+ " / " + min + " : " +sec);
-		System.out.println(m);
 		
 		musicName.setBounds(0, 0, 300, 20);
 		musicSinger.setBounds(0, 20, 300, 20);

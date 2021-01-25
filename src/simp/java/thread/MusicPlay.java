@@ -23,7 +23,7 @@ public class MusicPlay extends Thread {
 	public MusicPlay() {
 		//각 재생 목록 음악을 담기 위한 플레이어를 만든다.
 		for(Music music : MusicManager.managerMusicList) {
-			System.out.println(music);
+//			System.out.println(music);
 			MusicPlayer mp = new MusicPlayer(music);
 			mpList.add(mp);
 		}
@@ -51,7 +51,7 @@ public class MusicPlay extends Thread {
 		//저장된 곡이 없다면 그대로 종료
 		try {
 			if(MusicManager.managerMusicList.size() == 0) {
-				MyUtil.infoChanger("재생할 곡이 없습니다.");
+				MyUtil.changeInfo("재생할 곡이 없습니다.");
 				return;
 			}
 			//현재 재생중인 곡

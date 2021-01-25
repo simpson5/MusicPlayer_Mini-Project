@@ -17,16 +17,6 @@ public class MyUtil {
 	
 	private static JSlider playBar;
 	
-	//프레임 생성
-	public static void init(JFrame f, int w, int h, String title) {
-		f.setTitle(title);
-		f.setSize(w, h);
-		f.setLocationRelativeTo(null);
-//		초기화
-		f.setLayout(null);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
 	//리스트 패널 변환 메서드
 	public static void changePanel(JPanel parent, JPanel next) {
 		parent.removeAll();
@@ -40,7 +30,7 @@ public class MyUtil {
 	}
 	
 	//문자열을 받을때 정보패널 변환 메서드
-	public static void infoChanger(String s) {
+	public static void changeInfo(String s) {
 		MainFrame.infoPanel.removeAll();
 		MainFrame.infoPanel.add(new Info(s));
 		MainFrame.infoPanel.revalidate();
@@ -50,7 +40,7 @@ public class MyUtil {
 	}
 	
 	//음악 객체를 받을때 정보패널 변환 메서드
-	public static void infoChanger(Music m) {
+	public static void changeInfo(Music m) {
 		MainFrame.infoPanel.removeAll();
 		MainFrame.infoPanel.add(new Info(m));
 		MainFrame.infoPanel.revalidate();
@@ -70,26 +60,26 @@ public class MyUtil {
 		MainFrame.jlp.repaint();
 	}
 	
-	public static void playBar(Music m, int j) {
-		//1초전 재생바 등 모든 항목을 제거
-		MainFrame.playBarPanel.removeAll();
-		//새로운 재생바 생성
-		playBar = new JSlider(0, (int)m.getPlayTime(), j);
-		//항목을 다시 그려줌
-		MainFrame.playBarPanel.add(playBar);
-		MainFrame.playBarPanel.revalidate();
-		MainFrame.playBarPanel.repaint();
-		//레이어드를 사용했기 때문에(?) 상위 항목을 반드시 다시 그려줘야 한다.
-		MainFrame.jlp.revalidate();
-		MainFrame.jlp.repaint();
-	}
-	
 	public static void changeResultPanel(Collection<Music> m)  {
 		MainFrame.resultPanel.removeAll();
 		MainFrame.resultPanel.add(new MusicTable(m));
 		MainFrame.resultPanel.revalidate();
 		MainFrame.resultPanel.repaint();
 		//상위 항목 다시그리기 하지 않는 다면 큰일이 난다!
+		MainFrame.jlp.repaint();
+	}
+	
+	public static void playBar(Music m, int j) {
+		//1초전 재생바 등 모든 항목을 제거
+		MainFrame.playBarPanel.removeAll();
+		//새로운 재생바 생성
+		playBar = new JSlider(0, m.getPlayTime(), j);
+		//항목을 다시 그려줌
+		MainFrame.playBarPanel.add(playBar);
+		MainFrame.playBarPanel.revalidate();
+		MainFrame.playBarPanel.repaint();
+		//레이어드를 사용했기 때문에(?) 상위 항목을 반드시 다시 그려줘야 한다.
+		MainFrame.jlp.revalidate();
 		MainFrame.jlp.repaint();
 	}
 	

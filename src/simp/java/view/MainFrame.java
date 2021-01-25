@@ -22,7 +22,7 @@ public class MainFrame extends JFrame{
 	public static MusicManager mm = new MusicManager();
 	//음악 목록 패널 >> 전체, 재생 두가지를 가지고 있다.
 	private JPanel listPanel;
-	public static JPanel allListPanel;
+	private JPanel allListPanel;
 	public static JPanel playListPanel;
 	//정보 패널
 	public static JPanel infoPanel;
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame{
 	public static JPanel playPanel;
 	public static JPanel playBarPanel;
 	//검색패널
-	public static JPanel searchPanel;
+	private JPanel searchPanel;
 	public static JPanel resultPanel;
 	//배경화면과 각 패널 레이어드 구분을 위해
 	public static JLayeredPane jlp;
@@ -105,10 +105,10 @@ public class MainFrame extends JFrame{
 		btnPanel.add(shuffleListButton);
 		btnPanel.add(sortListButton);
 		
-		AllListButton.addActionListener(new ChangePanel());
-		playListButton.addActionListener(new ChangePanel2());
-		shuffleListButton.addActionListener(new ChangePanel3());
-		sortListButton.addActionListener(new ChangePanel4());
+		AllListButton.addActionListener(new ChangeAllList());
+		playListButton.addActionListener(new ChagePlayList());
+		shuffleListButton.addActionListener(new ShuffleList());
+		sortListButton.addActionListener(new SortList());
 		
 		//레이어드 구분하여 추가
 		jlp.add(background, new Integer(0));
@@ -123,21 +123,21 @@ public class MainFrame extends JFrame{
 		add(jlp);
 	}
 
-	public class ChangePanel implements ActionListener {
+	public class ChangeAllList implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MyUtil.changePanel(listPanel, allListPanel);
 		}
 	}
 
-	public class ChangePanel2 implements ActionListener {
+	public class ChagePlayList implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MyUtil.changePanel(listPanel, playListPanel);
 		}
 	}
 	
-	public class ChangePanel3 implements ActionListener {
+	public class ShuffleList implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//셔플을 실행함
@@ -146,17 +146,15 @@ public class MainFrame extends JFrame{
 			MyUtil.changePlayPanel(MusicManager.managerMusicList);
 			//셔플 panel을 열어주는 부분
 			MyUtil.changePanel(listPanel, playListPanel);
-			mm.playMusic();
 		}
 	}
 	
-	public class ChangePanel4 implements ActionListener {
+	public class SortList implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mm.sortMusicList();
 			MyUtil.changePlayPanel(MusicManager.managerMusicList);
 			MyUtil.changePanel(listPanel, playListPanel);
-			mm.playMusic();
 		}
 	}
 }
