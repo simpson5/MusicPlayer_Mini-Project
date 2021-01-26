@@ -37,34 +37,49 @@ public class MusicTable extends JPanel{
 			MyUtil.winAmp(l);
 			
 			//재생 목록 추가, 제거 버튼
-			JButton add = new JButton();
-			JButton remove = new JButton();
-			add.setBounds(220, 0, 60, 38);
-			remove.setBounds(280, 0, 60, 38);
-			add.setIcon(new ImageIcon("Image/add.jpg"));
-			remove.setIcon(new ImageIcon("Image/remove.jpg"));
-			add.addActionListener(new addBtnListner(m));
-			remove.addActionListener(new removeBtnListner(m));
-			
-			l.add(add);
-			l.add(remove);
+			if(MusicManager.managerMusicList.contains(m)) {
+				setRemove(m, l);
+			}
+			else {
+				setAdd(m, l);
+			}
+
 			add(l);
-			
 			i++;
 		}
+	}
+	
+	public void setAdd(Music m, JLabel l) {
+		JButton add = new JButton();
+		add.setBounds(280, 0, 60, 38);
+		add.setIcon(new ImageIcon("Image/add.jpg"));
+		add.addActionListener(new addBtnListner(m, l));
+		l.add(add);
+	}
+	
+	public void setRemove(Music m, JLabel l) {
+		JButton remove = new JButton();
+		remove.setBounds(280, 0, 60, 38);
+		remove.setIcon(new ImageIcon("Image/remove.jpg"));
+		remove.addActionListener(new removeBtnListner(m, l));
+		l.add(remove);
 	}
 
 	//추가 제거 하면서 playpanel에 있던 내용 다 지우고 다시 그리기 이러지 않으면 동기화 X
 	public class addBtnListner implements ActionListener {
 		Music m;
+		JLabel l;
 
-		public addBtnListner(Music m) {
+		public addBtnListner(Music m, JLabel l) {
 			this.m = m;
+			this.l = l;
 		}
 
 		//해당 음악을 메서드를 통해 추가한뒤 재생목록패널에 모든것을 지우고 다시 그린다
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			l.removeAll();
+			setRemove(m, l);
 			MainFrame.mm.addMusicList(m);
 			MyUtil.changePlayPanel(MusicManager.managerMusicList);
 		}
@@ -72,12 +87,16 @@ public class MusicTable extends JPanel{
 
 	public class removeBtnListner implements ActionListener {
 		Music m;
-		public removeBtnListner(Music m) {
+		JLabel l;
+		public removeBtnListner(Music m, JLabel l) {
 			this.m = m;
+			this.l = l;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			l.removeAll();
+			setAdd(m, l);
 			MainFrame.mm.removeMusicList(m);
 			MyUtil.changePlayPanel(MusicManager.managerMusicList);
 		}
