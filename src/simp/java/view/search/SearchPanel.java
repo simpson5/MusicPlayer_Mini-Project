@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.search;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +17,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import simp.java.modle.vo.Music;
+import simp.java.view.MainFrame;
 import simp.myutil.MyUtil;
 
 public class SearchPanel extends JPanel {

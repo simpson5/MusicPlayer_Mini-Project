@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.sub;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
 import simp.java.modle.vo.Music;
+import simp.java.view.MainFrame;
 import simp.myutil.MyUtil;
 
 //음악 목록을 불러오는 클래스

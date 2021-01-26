@@ -12,6 +12,13 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
+import simp.java.view.list.AllListPanel;
+import simp.java.view.list.PlayListPanel;
+import simp.java.view.play.InfoPanel;
+import simp.java.view.play.PlayBarPanel;
+import simp.java.view.play.PlayPanel;
+import simp.java.view.search.ResultPanel;
+import simp.java.view.search.SearchPanel;
 import simp.myutil.MyUtil;
 
 //메인 프레임

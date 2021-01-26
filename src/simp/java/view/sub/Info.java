@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.sub;
 
 import java.awt.Color;
 

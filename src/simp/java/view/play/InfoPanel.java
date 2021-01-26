@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.play;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

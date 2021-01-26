@@ -28,6 +28,7 @@ public class MusicPlayBar implements Runnable {
 					//1초마다
 					Thread.sleep(1000);
 				}
+				
 				MusicManager.nowMusic ++;
 				MyUtil.changeInfo(MusicManager.managerMusicList.get(MusicManager.nowMusic));
 			}

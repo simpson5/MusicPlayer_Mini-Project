@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.play;
 
 import java.awt.Color;
 import javax.swing.JPanel;

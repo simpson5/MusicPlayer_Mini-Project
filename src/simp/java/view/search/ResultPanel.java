@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.search;
 
 import javax.swing.JPanel;
 

@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import simp.java.modle.vo.Music;
-import simp.java.view.Info;
 import simp.java.view.MainFrame;
-import simp.java.view.MusicTable;
+import simp.java.view.sub.Info;
+import simp.java.view.sub.MusicTable;
 
 public class MyUtil {
 	

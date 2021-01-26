@@ -9,7 +9,7 @@ import java.util.function.IntUnaryOperator;
 import simp.java.contoroller.MusicManager;
 import simp.java.io.MusicPlayer;
 import simp.java.modle.vo.Music;
-import simp.java.view.AllListPanel;
+import simp.java.view.list.AllListPanel;
 import simp.myutil.MyUtil;
 
 //음악 재생을 위한 쓰레드, 쓰레드로 만들지 않을 경우 음악이 재생중일때 모든 동작이 멈춘다.

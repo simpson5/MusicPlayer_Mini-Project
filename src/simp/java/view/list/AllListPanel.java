@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.list;
 
 import java.util.Collection;
 
@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
 import simp.java.modle.vo.Music;
+import simp.java.view.sub.MusicTable;
 import simp.myutil.MyUtil;
 
 public class AllListPanel extends JPanel {

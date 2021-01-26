@@ -13,9 +13,9 @@ import simp.java.io.SetMusic;
 import simp.java.modle.vo.Music;
 import simp.java.thread.MusicPlay;
 import simp.java.thread.MusicPlayBar;
-import simp.java.view.Info;
 import simp.java.view.MainFrame;
-import simp.java.view.PlayPanel;
+import simp.java.view.play.PlayPanel;
+import simp.java.view.sub.Info;
 import simp.myutil.MyUtil;
 
 //플레이어와 스레드를 컨트롤 하기 위한 클래스

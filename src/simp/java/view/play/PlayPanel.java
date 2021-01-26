@@ -1,4 +1,4 @@
-package simp.java.view;
+package simp.java.view.play;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import simp.java.contoroller.MusicManager;
+import simp.java.view.MainFrame;
 import simp.myutil.MyUtil;
 
 public class PlayPanel extends JPanel {
